@@ -3,18 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { 
-  Heart, 
-  ShoppingBag, 
-  Sparkles, 
-  Bath, 
-  Gamepad2, 
-  Stethoscope,
-  Crown,
-  PawPrint,
-  Gift,
-  Star
-} from "lucide-react";
+
+// Import hyperrealistic icons
+import accesoriosIcon from "@/assets/icons/accesorios-icon.webp";
+import comidaGatosIcon from "@/assets/icons/comida-gatos-icon.webp";
+import comidaPerrosIcon from "@/assets/icons/comida-perros-icon.webp";
+import disfracesIcon from "@/assets/icons/disfraces-icon.webp";
+import higieneIcon from "@/assets/icons/higiene-icon.webp";
+import juguetesIcon from "@/assets/icons/juguetes-icon.webp";
+import saludIcon from "@/assets/icons/salud-icon.webp";
 
 interface Category {
   id: string;
@@ -23,39 +20,39 @@ interface Category {
   image_url?: string;
 }
 
-// Mapeo específico de iconos por nombre de categoría
-const getCategoryIcon = (categoryName: string) => {
-  const iconMap: { [key: string]: any } = {
-    "Accesorios": Crown,
-    "Comida para Gatos": Heart,
-    "Comida para Perros": ShoppingBag,
-    "Disfraces": Sparkles,
-    "Higiene": Bath,
-    "Juguetes": Gamepad2,
-    "Salud": Stethoscope,
+// Mapeo específico de iconos hiperrealistas por nombre de categoría
+const getCategoryIcon = (categoryName: string): string => {
+  const iconMap: { [key: string]: string } = {
+    "Accesorios": accesoriosIcon,
+    "Comida para Gatos": comidaGatosIcon,
+    "Comida para Perros": comidaPerrosIcon,
+    "Disfraces": disfracesIcon,
+    "Higiene": higieneIcon,
+    "Juguetes": juguetesIcon,
+    "Salud": saludIcon,
     // Fallbacks para otras categorías
-    "Comida": ShoppingBag,
-    "Medicamentos": Stethoscope,
-    "Limpieza": Bath,
-    "Entretenimiento": Gamepad2,
-    "Ropa": Sparkles,
-    "Complementos": Crown
+    "Comida": comidaPerrosIcon,
+    "Medicamentos": saludIcon,
+    "Limpieza": higieneIcon,
+    "Entretenimiento": juguetesIcon,
+    "Ropa": disfracesIcon,
+    "Complementos": accesoriosIcon
   };
   
-  return iconMap[categoryName] || PawPrint;
+  return iconMap[categoryName] || accesoriosIcon;
 };
 
 const categoryColors = [
-  "bg-gradient-to-br from-pink-100 to-rose-200 text-pink-600 shadow-pink-100/50",
-  "bg-gradient-to-br from-blue-100 to-sky-200 text-blue-600 shadow-blue-100/50", 
-  "bg-gradient-to-br from-green-100 to-emerald-200 text-green-600 shadow-green-100/50",
-  "bg-gradient-to-br from-purple-100 to-violet-200 text-purple-600 shadow-purple-100/50",
-  "bg-gradient-to-br from-orange-100 to-amber-200 text-orange-600 shadow-orange-100/50",
-  "bg-gradient-to-br from-teal-100 to-cyan-200 text-teal-600 shadow-teal-100/50",
-  "bg-gradient-to-br from-indigo-100 to-blue-200 text-indigo-600 shadow-indigo-100/50",
-  "bg-gradient-to-br from-red-100 to-pink-200 text-red-600 shadow-red-100/50",
-  "bg-gradient-to-br from-yellow-100 to-orange-200 text-yellow-600 shadow-yellow-100/50",
-  "bg-gradient-to-br from-emerald-100 to-teal-200 text-emerald-600 shadow-emerald-100/50"
+  "bg-gradient-to-br from-pink-50/80 to-rose-100/80 border border-pink-200/50 shadow-pink-200/30",
+  "bg-gradient-to-br from-blue-50/80 to-sky-100/80 border border-blue-200/50 shadow-blue-200/30", 
+  "bg-gradient-to-br from-green-50/80 to-emerald-100/80 border border-green-200/50 shadow-green-200/30",
+  "bg-gradient-to-br from-purple-50/80 to-violet-100/80 border border-purple-200/50 shadow-purple-200/30",
+  "bg-gradient-to-br from-orange-50/80 to-amber-100/80 border border-orange-200/50 shadow-orange-200/30",
+  "bg-gradient-to-br from-teal-50/80 to-cyan-100/80 border border-teal-200/50 shadow-teal-200/30",
+  "bg-gradient-to-br from-indigo-50/80 to-blue-100/80 border border-indigo-200/50 shadow-indigo-200/30",
+  "bg-gradient-to-br from-red-50/80 to-pink-100/80 border border-red-200/50 shadow-red-200/30",
+  "bg-gradient-to-br from-yellow-50/80 to-orange-100/80 border border-yellow-200/50 shadow-yellow-200/30",
+  "bg-gradient-to-br from-emerald-50/80 to-teal-100/80 border border-emerald-200/50 shadow-emerald-200/30"
 ];
 
 export const Categories = () => {
@@ -135,30 +132,31 @@ export const Categories = () => {
           {categories.map((category, index) => (
             <Card 
               key={category.id}
-              className="group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3 bg-gradient-to-br from-white to-gray-50/50 border-0 backdrop-blur-sm"
+              className="group cursor-pointer transition-all duration-700 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-4 bg-gradient-to-br from-white/90 to-gray-50/30 border-0 backdrop-blur-md overflow-hidden"
               onClick={() => handleCategoryClick(category.name)}
             >
               <CardContent className="p-6 text-center">
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg ${categoryColors[index % categoryColors.length]} group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                <div className={`inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-4 backdrop-blur-sm ${categoryColors[index % categoryColors.length]} group-hover:scale-110 group-hover:rotate-2 transition-all duration-500 shadow-2xl`}>
                   {category.image_url ? (
                     <img 
                       src={category.image_url} 
                       alt={category.name}
-                      className="w-8 h-8 object-contain"
+                      className="w-12 h-12 object-contain drop-shadow-lg"
                     />
                   ) : (
-                    (() => {
-                      const IconComponent = getCategoryIcon(category.name);
-                      return <IconComponent className="w-8 h-8" strokeWidth={1.5} />;
-                    })()
+                    <img 
+                      src={getCategoryIcon(category.name)}
+                      alt={category.name}
+                      className="w-12 h-12 object-contain drop-shadow-lg filter hover:brightness-110 transition-all duration-300"
+                    />
                   )}
                 </div>
                 
-                <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors text-sm">
                   {category.name}
                 </h3>
                 
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-xs text-muted-foreground leading-relaxed opacity-80">
                   {category.description || "Productos de calidad para tu mascota"}
                 </p>
               </CardContent>
