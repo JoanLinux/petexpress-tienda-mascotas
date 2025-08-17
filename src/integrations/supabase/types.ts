@@ -198,11 +198,42 @@ export type Database = {
         }
         Relationships: []
       }
+      role_change_log: {
+        Row: {
+          changed_at: string
+          changed_by_user_id: string
+          id: string
+          new_role: string | null
+          old_role: string | null
+          target_user_id: string
+        }
+        Insert: {
+          changed_at?: string
+          changed_by_user_id: string
+          id?: string
+          new_role?: string | null
+          old_role?: string | null
+          target_user_id: string
+        }
+        Update: {
+          changed_at?: string
+          changed_by_user_id?: string
+          id?: string
+          new_role?: string | null
+          old_role?: string | null
+          target_user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      change_user_role: {
+        Args: { new_role: string; target_user_id: string }
+        Returns: undefined
+      }
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
