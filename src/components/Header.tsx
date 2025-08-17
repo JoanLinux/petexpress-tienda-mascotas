@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Menu, Search, User } from "lucide-react";
 import pawLogo from "@/assets/paw-logo.png";
+import { useCart } from "@/hooks/useCart";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const [cartItems] = useState(3); // Mock cart items
+  const { totalItems } = useCart();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -34,14 +36,16 @@ export const Header = () => {
             <Search className="h-5 w-5" />
           </Button>
           
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="h-5 w-5" />
-            {cartItems > 0 && (
-              <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs bg-primary text-primary-foreground">
-                {cartItems}
-              </Badge>
-            )}
-          </Button>
+          <Link to="/cart">
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center text-xs bg-primary text-primary-foreground">
+                  {totalItems}
+                </Badge>
+              )}
+            </Button>
+          </Link>
 
           <Button variant="ghost" size="icon">
             <User className="h-5 w-5" />

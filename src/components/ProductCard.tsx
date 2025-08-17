@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/hooks/useCart";
 
 interface Product {
   id: number;
@@ -21,10 +22,21 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addItem } = useCart();
   
   const discount = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      maxStock: 10 // Default stock, this should come from your product data
+    });
+  };
 
   return (
     <Card className="group cursor-pointer transition-all duration-300 hover:shadow-card hover:-translate-y-1 bg-gradient-card border-0">
@@ -107,6 +119,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           variant="pet" 
           className="w-full"
           disabled={!product.inStock}
+          onClick={handleAddToCart}
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
           {product.inStock ? 'Agregar al Carrito' : 'Agotado'}
