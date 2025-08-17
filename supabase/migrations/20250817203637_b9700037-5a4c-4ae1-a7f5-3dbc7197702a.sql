@@ -1,0 +1,17 @@
+-- Insertar productos de la categoría SALUD
+INSERT INTO products (name, description, price, category_id, stock, image_url) VALUES
+('Multivitamínico Completo', 'Suplemento vitamínico en tabletas masticables, soporte inmunológico, frasco ámbar', 28.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 40, '/src/assets/products/multivitaminico.webp'),
+('Suplemento Articulaciones', 'Glucosamina y condroitina para articulaciones sanas, tabletas fáciles de administrar', 34.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 35, '/src/assets/products/suplemento-articulaciones.webp'),
+('Omega-3 Premium', 'Aceite de pescado en cápsulas blandas, pelaje brillante y piel saludable', 24.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 45, '/src/assets/products/omega3.webp'),
+('Collar Antipulgas 8 Meses', 'Protección prolongada contra pulgas y garrapatas, silicona gris resistente al agua', 18.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 60, '/src/assets/products/collar-antipulgas.webp'),
+('Botiquín Primeros Auxilios', 'Kit completo de emergencias con vendas, antiséptico y termómetro, estuche rojo', 42.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 25, '/src/assets/products/botiquin-primeros-auxilios.webp'),
+('Calmante Natural Ansiedad', 'Suplemento herbal para reducir estrés y ansiedad, fórmula natural sin sedantes', 21.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 38, '/src/assets/products/calmante-natural.webp'),
+('Probióticos Digestivos', 'Cultivos vivos para salud intestinal, mejora digestión, polvo soluble sabor neutro', 26.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 42, '/src/assets/products/multivitaminico.webp'),
+('Gotas para Ojos Irritados', 'Solución oftálmica suave, alivia irritación y sequedad, aplicador de precisión', 15.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 50, '/src/assets/products/omega3.webp'),
+('Spray Cicatrizante', 'Antiséptico en spray para heridas menores, acelera curación, no arde al aplicar', 12.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 55, '/src/assets/products/calmante-natural.webp'),
+('Suplemento Pelo y Piel', 'Biotina y zinc para pelaje saludable, reduce caída del pelo, tabletas saborizadas', 19.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 48, '/src/assets/products/suplemento-articulaciones.webp'),
+('Termómetro Digital Flexible', 'Termómetro veterinario de lectura rápida, punta flexible, pantalla LCD grande', 22.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 35, '/src/assets/products/botiquin-primeros-auxilios.webp'),
+('Antihistamínico Masticable', 'Tratamiento para alergias estacionales, tabletas masticables sabor hígado', 17.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 40, '/src/assets/products/collar-antipulgas.webp'),
+('Suplemento Inmunológico Senior', 'Fórmula especializada para mascotas mayores, antioxidantes y vitaminas', 31.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 28, '/src/assets/products/multivitaminico.webp'),
+('Gel Dental Enzimático', 'Gel para higiene bucal sin cepillado, enzimas naturales, sabor pollo', 14.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 52, '/src/assets/products/omega3.webp'),
+('Collar Féresis Anti-Estrés', 'Collar con feromonas calmantes, reduce ansiedad por separación, duración 30 días', 25.99, '67e29bdb-36d6-4bd6-8d50-ac436f608244', 32, '/src/assets/products/calmante-natural.webp');
