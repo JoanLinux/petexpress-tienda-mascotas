@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, ShoppingCart, Star } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+import { useProductViews } from "@/hooks/useProductViews";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   originalPrice?: number;
@@ -14,6 +16,7 @@ interface Product {
   image: string;
   category: string;
   inStock: boolean;
+  maxStock?: number;
 }
 
 interface ProductCardProps {
@@ -23,6 +26,13 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { addItem } = useCart();
+  const { toast } = useToast();
+  const { trackProductView } = useProductViews();
+
+  // Track product view when component mounts
+  useEffect(() => {
+    trackProductView(product.id);
+  }, [product.id, trackProductView]);
   
   const discount = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -34,7 +44,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       name: product.name,
       price: product.price,
       image: product.image,
-      maxStock: 10 // Default stock, this should come from your product data
+      maxStock: product.maxStock || 10
+    });
+    
+    toast({
+      title: "Producto agregado",
+      description: `${product.name} se ha agregado al carrito.`,
     });
   };
 
