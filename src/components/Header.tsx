@@ -14,8 +14,7 @@ export const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // For now, just alert the search - you can implement proper search later
-      alert(`Buscando: ${searchQuery}`);
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
       setSearchQuery("");
     }
   };
