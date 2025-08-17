@@ -37,6 +37,16 @@ const ProductsByCategory = () => {
     try {
       setLoading(true);
       
+      // First get the category ID
+      const { data: category, error: categoryError } = await supabase
+        .from('categories')
+        .select('id')
+        .eq('name', categoryName)
+        .single();
+
+      if (categoryError) throw categoryError;
+
+      // Then get products for that category
       const { data, error } = await supabase
         .from('products')
         .select(`
@@ -46,7 +56,7 @@ const ProductsByCategory = () => {
           )
         `)
         .eq('is_active', true)
-        .eq('categories.name', categoryName)
+        .eq('category_id', category.id)
         .gt('stock', 0)
         .order('created_at', { ascending: false });
 

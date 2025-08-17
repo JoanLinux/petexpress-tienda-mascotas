@@ -16,6 +16,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminCategories from "./pages/admin/Categories";
+import AdminPromotions from "./pages/admin/Promotions";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,11 @@ const App = () => (
               <Route path="/admin/categories" element={
                 <ProtectedRoute>
                   <AdminCategories />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/promotions" element={
+                <ProtectedRoute>
+                  <AdminPromotions />
                 </ProtectedRoute>
               } />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
