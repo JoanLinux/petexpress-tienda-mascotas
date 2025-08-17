@@ -3,6 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { 
+  Heart, 
+  ShoppingBag, 
+  Sparkles, 
+  Bath, 
+  Gamepad2, 
+  Stethoscope,
+  Crown,
+  PawPrint,
+  Gift,
+  Star
+} from "lucide-react";
 
 interface Category {
   id: string;
@@ -11,21 +23,39 @@ interface Category {
   image_url?: string;
 }
 
-const categoryIcons = [
-  "🍖", "🎾", "🛏️", "💊", "🦴", "🧼", "🐕", "🐱", "🏠", "🎀"
-];
+// Mapeo específico de iconos por nombre de categoría
+const getCategoryIcon = (categoryName: string) => {
+  const iconMap: { [key: string]: any } = {
+    "Accesorios": Crown,
+    "Comida para Gatos": Heart,
+    "Comida para Perros": ShoppingBag,
+    "Disfraces": Sparkles,
+    "Higiene": Bath,
+    "Juguetes": Gamepad2,
+    "Salud": Stethoscope,
+    // Fallbacks para otras categorías
+    "Comida": ShoppingBag,
+    "Medicamentos": Stethoscope,
+    "Limpieza": Bath,
+    "Entretenimiento": Gamepad2,
+    "Ropa": Sparkles,
+    "Complementos": Crown
+  };
+  
+  return iconMap[categoryName] || PawPrint;
+};
 
 const categoryColors = [
-  "bg-orange-100 text-orange-600",
-  "bg-green-100 text-green-600", 
-  "bg-blue-100 text-blue-600",
-  "bg-red-100 text-red-600",
-  "bg-purple-100 text-purple-600",
-  "bg-teal-100 text-teal-600",
-  "bg-yellow-100 text-yellow-600",
-  "bg-pink-100 text-pink-600",
-  "bg-indigo-100 text-indigo-600",
-  "bg-cyan-100 text-cyan-600"
+  "bg-gradient-to-br from-pink-100 to-rose-200 text-pink-600 shadow-pink-100/50",
+  "bg-gradient-to-br from-blue-100 to-sky-200 text-blue-600 shadow-blue-100/50", 
+  "bg-gradient-to-br from-green-100 to-emerald-200 text-green-600 shadow-green-100/50",
+  "bg-gradient-to-br from-purple-100 to-violet-200 text-purple-600 shadow-purple-100/50",
+  "bg-gradient-to-br from-orange-100 to-amber-200 text-orange-600 shadow-orange-100/50",
+  "bg-gradient-to-br from-teal-100 to-cyan-200 text-teal-600 shadow-teal-100/50",
+  "bg-gradient-to-br from-indigo-100 to-blue-200 text-indigo-600 shadow-indigo-100/50",
+  "bg-gradient-to-br from-red-100 to-pink-200 text-red-600 shadow-red-100/50",
+  "bg-gradient-to-br from-yellow-100 to-orange-200 text-yellow-600 shadow-yellow-100/50",
+  "bg-gradient-to-br from-emerald-100 to-teal-200 text-emerald-600 shadow-emerald-100/50"
 ];
 
 export const Categories = () => {
@@ -105,11 +135,11 @@ export const Categories = () => {
           {categories.map((category, index) => (
             <Card 
               key={category.id}
-              className="group cursor-pointer transition-all duration-300 hover:shadow-card hover:-translate-y-2 bg-gradient-card border-0"
+              className="group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3 bg-gradient-to-br from-white to-gray-50/50 border-0 backdrop-blur-sm"
               onClick={() => handleCategoryClick(category.name)}
             >
               <CardContent className="p-6 text-center">
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 text-2xl ${categoryColors[index % categoryColors.length]} group-hover:scale-110 transition-transform`}>
+                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 shadow-lg ${categoryColors[index % categoryColors.length]} group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                   {category.image_url ? (
                     <img 
                       src={category.image_url} 
@@ -117,7 +147,10 @@ export const Categories = () => {
                       className="w-8 h-8 object-contain"
                     />
                   ) : (
-                    categoryIcons[index % categoryIcons.length]
+                    (() => {
+                      const IconComponent = getCategoryIcon(category.name);
+                      return <IconComponent className="w-8 h-8" strokeWidth={1.5} />;
+                    })()
                   )}
                 </div>
                 
@@ -125,7 +158,7 @@ export const Categories = () => {
                   {category.name}
                 </h3>
                 
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {category.description || "Productos de calidad para tu mascota"}
                 </p>
               </CardContent>
