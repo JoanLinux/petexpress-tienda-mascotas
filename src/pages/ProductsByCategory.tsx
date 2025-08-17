@@ -28,6 +28,9 @@ const ProductsByCategory = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Scroll to top when component mounts or category changes
+    window.scrollTo(0, 0);
+    
     if (categoryName) {
       fetchProductsByCategory();
     }
