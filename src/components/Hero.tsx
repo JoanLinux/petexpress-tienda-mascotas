@@ -1,68 +1,76 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, Heart, Truck } from "lucide-react";
-import heroImage from "@/assets/hero-pets.png";
+import chugHeroImage from "@/assets/chug-hero-bg.jpg";
 
 export const Hero = () => {
   return (
-    <section className="relative py-16 px-4 bg-gradient-hero overflow-hidden">
-      <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Content */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <img 
+          src={chugHeroImage} 
+          alt="Beautiful CHUG dog" 
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-hero glass-effect" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 py-16">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                 Todo para tu 
-                <span className="text-primary"> mascota</span>
+                <span className="text-gradient"> mascota</span>
                 <br />en un solo lugar
               </h1>
               
-              <p className="text-lg text-muted-foreground max-w-md">
+              <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-light">
                 Descubre la mejor selección de comida, juguetes, camas y medicina 
                 para hacer feliz a tu compañero peludo.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group">
-                <ShoppingBag className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                className="group px-8 py-4 text-lg font-semibold shadow-elegant hover:shadow-button transition-elegant"
+              >
+                <ShoppingBag className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
                 Ver Catálogo
               </Button>
               
-              <Button variant="outline" size="lg">
-                <Heart className="mr-2 h-5 w-5" />
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="px-8 py-4 text-lg font-semibold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-elegant"
+              >
+                <Heart className="mr-3 h-6 w-6" />
                 Lista de Deseos
               </Button>
             </div>
 
-            {/* Features */}
-            <div className="flex flex-wrap gap-6 pt-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Truck className="h-4 w-4 text-primary" />
-                Envío gratis desde $50
+            {/* Professional Features */}
+            <div className="flex flex-wrap justify-center gap-8 pt-8">
+              <div className="flex items-center gap-3 text-white/80 backdrop-blur-sm bg-white/10 rounded-full px-6 py-3">
+                <Truck className="h-5 w-5 text-secondary" />
+                <span className="font-medium">Envío gratis desde $50</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Heart className="h-4 w-4 text-primary" />
-                Productos de calidad
+              <div className="flex items-center gap-3 text-white/80 backdrop-blur-sm bg-white/10 rounded-full px-6 py-3">
+                <Heart className="h-5 w-5 text-secondary" />
+                <span className="font-medium">Productos de calidad premium</span>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-card bg-gradient-card">
-              <img 
-                src={heroImage} 
-                alt="Productos para mascotas" 
-                className="w-full h-[400px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-            </div>
-            
-            {/* Floating badge */}
-            <div className="absolute -top-4 -right-4 bg-primary text-primary-foreground px-4 py-2 rounded-full font-semibold shadow-primary">
-              ¡20% OFF!
-            </div>
-          </div>
+      {/* Floating Professional Badge */}
+      <div className="absolute top-8 right-8 z-20">
+        <div className="bg-secondary text-secondary-foreground px-6 py-3 rounded-full font-bold text-lg shadow-elegant backdrop-blur-sm">
+          ¡20% OFF!
         </div>
       </div>
     </section>

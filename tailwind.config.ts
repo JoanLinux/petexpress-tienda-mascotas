@@ -27,11 +27,13 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					glow: 'hsl(var(--primary-glow))'
+					glow: 'hsl(var(--primary-glow))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					dark: 'hsl(var(--secondary-dark))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -67,16 +69,20 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-card': 'var(--gradient-card)',
+				'gradient-premium': 'var(--gradient-premium)',
+				'gradient-elegant': 'var(--gradient-elegant)'
 			},
 			boxShadow: {
 				'primary': 'var(--shadow-primary)',
 				'card': 'var(--shadow-card)',
-				'button': 'var(--shadow-button)'
+				'button': 'var(--shadow-button)',
+				'elegant': 'var(--shadow-elegant)'
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
-				'bounce': 'var(--transition-bounce)'
+				'bounce': 'var(--transition-bounce)',
+				'elegant': 'var(--transition-elegant)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
