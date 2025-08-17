@@ -1,0 +1,35 @@
+-- Insertar productos de la categoría COMIDA PARA PERROS
+INSERT INTO products (name, description, price, category_id, stock, image_url) VALUES
+('Alimento Razas Grandes Premium', 'Croquetas especiales para razas grandes, fórmula con glucosamina para salud articular, carne y arroz', 42.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 35, '/src/assets/products/comida-seca-perro-grande.webp'),
+('Premios de Entrenamiento', 'Treats pequeños ideales para entrenamientos, sabor pollo, fáciles de digerir y alta palatabilidad', 14.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 75, '/src/assets/products/premios-entrenamiento.webp'),
+('Pads de Entrenamiento Súper Absorbentes', 'Empapadores para cachorros, tecnología de absorción rápida, respaldo a prueba de fugas, pack 50 unidades', 16.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 60, '/src/assets/products/pads-entrenamiento.webp'),
+('Latas Guiso de Carne', 'Comida húmeda con trozos de carne en salsa, textura apetitosa, rico en proteínas y vitaminas', 24.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 50, '/src/assets/products/latas-perro-guiso.webp'),
+('Huesos Dentales de Menta', 'Snacks funcionales para higiene dental, forma de hueso, sabor menta refrescante, reduce sarro', 19.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 65, '/src/assets/products/huesos-dentales.webp'),
+('Alimento para Cachorros', 'Fórmula nutritiva para cachorros, pavo y batata, DHA para desarrollo cerebral, croquetas pequeñas', 36.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 40, '/src/assets/products/comida-cachorro.webp'),
+('Alimento Perros Senior', 'Comida especializada para perros mayores 7+ años, fácil digestión, soporte articular, antioxidantes', 38.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 32, '/src/assets/products/comida-perro-senior.webp'),
+('Alimento Sin Cereales', 'Fórmula libre de granos, cordero y batata, ideal para perros con sensibilidades alimentarias', 47.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 28, '/src/assets/products/comida-sin-cereales-perro.webp'),
+('Galletas Orgánicas Mantequilla Maní', 'Premios horneados artesanalmente con ingredientes orgánicos, forma de hueso, textura crujiente', 13.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 55, '/src/assets/products/galletas-organicas.webp'),
+('Comida Húmeda Light', 'Alimento bajo en grasas para control de peso, pollo y verduras, textura paté suave', 22.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 45, '/src/assets/products/latas-perro-guiso.webp'),
+('Snacks Deshidratados de Hígado', 'Treats 100% naturales de hígado de res deshidratado, alto valor proteico, sin aditivos', 18.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 48, '/src/assets/products/premios-entrenamiento.webp'),
+('Alimento Hipoalergénico', 'Dieta veterinaria para perros con alergias alimentarias, proteína hidrolizada, arroz integral', 52.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 20, '/src/assets/products/comida-seca-perro-grande.webp'),
+('Treats Funcionales Articulaciones', 'Premios con glucosamina y condroitina, sabor salmón, soporte para articulaciones sanas', 24.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 38, '/src/assets/products/huesos-dentales.webp'),
+('Comida Sport & Energy', 'Alimento alto en proteínas para perros activos, pollo fresco, energía sostenida, recuperación muscular', 45.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 25, '/src/assets/products/comida-sin-cereales-perro.webp'),
+('Paté Gourmet Multipack', 'Selección de patés premium en latas, 6 sabores diferentes, textura cremosa y apetitosa', 28.99, 'bb49e7fa-2318-4ab5-b226-c3c6eb1c991d', 42, '/src/assets/products/latas-perro-guiso.webp');
+
+-- Insertar productos de la categoría DISFRACES
+INSERT INTO products (name, description, price, category_id, stock, image_url) VALUES
+('Disfraz de Superhéroe', 'Traje completo con capa roja y chaleco azul, cómodo y ajustable, perfecto para Halloween y fiestas', 25.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 30, '/src/assets/products/disfraz-superheroe.webp'),
+('Disfraz de Calabaza Halloween', 'Adorable traje de calabaza naranja con sombrero de tallo verde, ideal para celebraciones de octubre', 19.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 35, '/src/assets/products/disfraz-calabaza.webp'),
+('Disfraz de Pirata', 'Conjunto pirata con parche en el ojo y bandana roja, diseño auténtico y divertido', 22.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 28, '/src/assets/products/disfraz-pirata.webp'),
+('Disfraz de Santa Navideño', 'Traje navideño completo con gorro de Santa, perfecto para fotos familiares y celebraciones', 24.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 40, '/src/assets/products/disfraz-santa.webp'),
+('Disfraz de León Safari', 'Melena realista de león con orejas, transformación instantánea, cómodo y seguro', 27.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 25, '/src/assets/products/disfraz-superheroe.webp'),
+('Disfraz de Unicornio Mágico', 'Traje rosa con cuerno dorado y alas brillantes, diseño fantástico para mascotas pequeñas', 29.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 22, '/src/assets/products/disfraz-calabaza.webp'),
+('Disfraz de Dinosaurio', 'Traje verde con espinas dorsales, cola incluida, diversión prehistórica garantizada', 26.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 32, '/src/assets/products/disfraz-pirata.webp'),
+('Disfraz de Abeja Reina', 'Conjunto amarillo y negro con alas transparentes, antenas móviles, dulce y adorable', 21.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 38, '/src/assets/products/disfraz-santa.webp'),
+('Disfraz de Vampiro Elegante', 'Capa negra con cuello alto rojo, colmillos opcionales, misterioso y sofisticado', 23.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 20, '/src/assets/products/disfraz-superheroe.webp'),
+('Disfraz de Marinero', 'Uniforme naval azul y blanco con gorra de capitán, clásico y elegante', 25.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 26, '/src/assets/products/disfraz-calabaza.webp'),
+('Disfraz de Ángel Celestial', 'Túnica blanca con alas esponjosas y aureola dorada, pureza y ternura', 28.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 24, '/src/assets/products/disfraz-pirata.webp'),
+('Disfraz de Chef Gourmet', 'Delantal de cocina con gorro de chef, accesorios incluidos, perfecto para fotos divertidas', 20.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 33, '/src/assets/products/disfraz-santa.webp'),
+('Disfraz de Princesa Real', 'Vestido rosa con corona brillante, elegancia y realeza para tu mascota especial', 31.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 18, '/src/assets/products/disfraz-superheroe.webp'),
+('Disfraz de Cowboy Western', 'Traje del oeste con sombrero y bandana, aventura en el salvaje oeste', 24.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 29, '/src/assets/products/disfraz-calabaza.webp'),
+('Disfraz de Mago Misterioso', 'Capa estrellada con sombrero de mago, varita mágica incluida, hechizos y diversión', 26.99, 'e63d9bb7-10db-4ade-b78f-585d51e20e86', 21, '/src/assets/products/disfraz-pirata.webp');
