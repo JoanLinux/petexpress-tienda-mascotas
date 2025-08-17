@@ -5,28 +5,28 @@ import chugHeroImage from "@/assets/chug-hero-bg.jpg";
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background Image with Lighter Overlay */}
       <div className="absolute inset-0">
         <img 
           src={chugHeroImage} 
           alt="Beautiful CHUG dog" 
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-hero glass-effect" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-primary/20 to-transparent" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center text-white">
+        <div className="max-w-4xl mx-auto text-center">
           <div className="space-y-8">
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white drop-shadow-2xl">
                 Todo para tu 
-                <span className="text-gradient"> mascota</span>
+                <span className="text-secondary drop-shadow-lg"> mascota</span>
                 <br />en un solo lugar
               </h1>
               
-              <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-light">
+              <p className="text-xl md:text-2xl text-white/95 max-w-2xl mx-auto font-light drop-shadow-lg">
                 Descubre la mejor selección de comida, juguetes, camas y medicina 
                 para hacer feliz a tu compañero peludo.
               </p>
@@ -45,7 +45,7 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-8 py-4 text-lg font-semibold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-elegant"
+                className="px-8 py-4 text-lg font-semibold border-white/50 text-white hover:bg-white/20 backdrop-blur-sm transition-elegant"
               >
                 <Heart className="mr-3 h-6 w-6" />
                 Lista de Deseos
@@ -54,11 +54,11 @@ export const Hero = () => {
 
             {/* Professional Features */}
             <div className="flex flex-wrap justify-center gap-8 pt-8">
-              <div className="flex items-center gap-3 text-white/80 backdrop-blur-sm bg-white/10 rounded-full px-6 py-3">
+              <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
                 <Truck className="h-5 w-5 text-secondary" />
                 <span className="font-medium">Envío gratis desde $50</span>
               </div>
-              <div className="flex items-center gap-3 text-white/80 backdrop-blur-sm bg-white/10 rounded-full px-6 py-3">
+              <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
                 <Heart className="h-5 w-5 text-secondary" />
                 <span className="font-medium">Productos de calidad premium</span>
               </div>
