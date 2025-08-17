@@ -5,14 +5,15 @@ import chugHeroImage from "@/assets/chug-hero-bg.jpg";
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Lighter Overlay */}
+      {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0">
         <img 
           src={chugHeroImage} 
           alt="Beautiful CHUG dog" 
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-primary/20 to-transparent" />
+        {/* Gradient overlay from dark at bottom to transparent at top */}
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent" />
       </div>
 
       {/* Content */}
@@ -45,7 +46,7 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-8 py-4 text-lg font-semibold border-white/50 text-white hover:bg-white/20 backdrop-blur-sm transition-elegant"
+                className="px-8 py-4 text-lg font-semibold border-2 border-white bg-white/20 text-white hover:bg-white hover:text-primary backdrop-blur-sm transition-elegant"
               >
                 <Heart className="mr-3 h-6 w-6" />
                 Lista de Deseos
