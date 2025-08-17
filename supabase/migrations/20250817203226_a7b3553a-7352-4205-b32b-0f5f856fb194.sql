@@ -1,0 +1,35 @@
+-- Insertar productos de la categoría ACCESORIOS
+INSERT INTO products (name, description, price, category_id, stock, image_url) VALUES
+('Collar de Lujo de Cuero', 'Collar premium de cuero genuino con hebilla dorada y tachuelas, diseño elegante para perros de todas las tallas', 45.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 25, '/src/assets/products/collar-lujo-cuero.webp'),
+('Arnés Reflectivo Ajustable', 'Arnés cómodo con tiras reflectivas para mayor seguridad nocturna, material de nylon resistente con acolchado', 29.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 30, '/src/assets/products/arnes-reflectivo.webp'),
+('Correa Retráctil Ergonómica', 'Correa extensible con mango ergonómico, mecanismo de frenado suave y resistente para perros medianos', 24.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 40, '/src/assets/products/correa-retractil.webp'),
+('Placa de Identificación Personalizada', 'Placa de acero inoxidable con forma de hueso, grabado personalizado disponible, acabado esmaltado azul', 12.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 50, '/src/assets/products/placa-identificacion.webp'),  
+('Transportador de Lujo', 'Bolsa transportadora de alta gama con ventanas de malla, detalles en cuero y correa ajustable para el hombro', 89.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 15, '/src/assets/products/transportador-lujo.webp'),
+('Arnés de Seguridad para Coche', 'Arnés acolchado con clips de seguridad para viajes en automóvil, correas ajustables y resistentes', 34.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 35, '/src/assets/products/arnes-coche.webp'),
+('Comedero Automático Programable', 'Dispensador de comida con pantalla LCD, control de porciones y programación horaria para 6 comidas', 79.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 20, '/src/assets/products/comedero-automatico.webp'),
+('Collar GPS con Localizador', 'Collar inteligente con GPS integrado, resistente al agua, batería de larga duración e indicador LED', 129.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 12, '/src/assets/products/collar-gps.webp'),
+('Cama Ortopédica de Memoria', 'Cama premium con espuma viscoelástica, funda removible lavable, ideal para perros con problemas articulares', 69.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 18, '/src/assets/products/cama-ortopedica.webp'),
+('Fuente de Agua con LED', 'Fuente de acero inoxidable con sistema de filtración, luces LED y flujo continuo silencioso', 54.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 22, '/src/assets/products/fuente-agua.webp'),
+('Barrera de Seguridad Expandible', 'Puerta metálica blanca extensible con mecanismo de cierre seguro, ideal para separar espacios', 39.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 28, '/src/assets/products/barrera-seguridad.webp'),
+('Escalones Acolchados para Mascotas', 'Rampa de 3 escalones con superficie antideslizante, perfecta para mascotas pequeñas o seniors', 32.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 32, '/src/assets/products/escalones-mascotas.webp'),
+('Asiento Elevado para Coche', 'Asiento de seguridad tipo booster con arnés incluido, instalación fácil y tela lavable', 49.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 26, '/src/assets/products/asiento-coche.webp'),
+('Mochila de Transporte Ergonómica', 'Mochila con paneles de ventilación, correas acolchadas y diseño ergonómico para caminatas largas', 64.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 20, '/src/assets/products/mochila-transporte.webp'),
+('Set de Platos Elevados', 'Comederos de acero inoxidable con base antideslizante, altura elevada para mejor postura alimentaria', 27.99, 'bd9501d3-39b1-45f5-be92-8cfd1d7eb182', 35, '/src/assets/products/platos-elevados-gato.webp');
+
+-- Insertar productos de la categoría COMIDA PARA GATOS  
+INSERT INTO products (name, description, price, category_id, stock, image_url) VALUES
+('Alimento Seco Salmón y Pollo', 'Fórmula premium con salmón fresco y pollo, rica en proteínas y omega-3 para gatos adultos', 34.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 45, '/src/assets/products/comida-seca-gato-salmon.webp'),
+('Multipack Latas Gourmet', 'Variedad de sabores en paté suave, 12 latas de comida húmeda premium con trozos de carne real', 18.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 60, '/src/assets/products/latas-gato-multipack.webp'),
+('Snacks Liofilizados de Pollo', 'Premios naturales 100% pollo liofilizado, sin conservantes ni aditivos artificiales', 8.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 80, '/src/assets/products/snacks-gato-pollo.webp'),
+('Alimento para Gatitos', 'Fórmula especial para gatitos de 2-12 meses, con DHA para desarrollo cerebral y croquetas pequeñas', 29.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 38, '/src/assets/products/comida-gatito.webp'),
+('Alimento para Gatos Senior', 'Fórmula digestiva fácil para gatos mayores de 7+ años, enriquecida con vitaminas y minerales', 32.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 35, '/src/assets/products/comida-gato-senior.webp'),
+('Control de Bolas de Pelo', 'Alimento especializado con fibra natural para prevenir y eliminar bolas de pelo, sabor pollo', 31.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 40, '/src/assets/products/comida-bolas-pelo.webp'),
+('Spray de Catnip Orgánico', 'Hierba gatera en spray 100% natural para estimular el juego y relajar a tu gato', 6.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 90, '/src/assets/products/spray-catnip.webp'),
+('Premios Sin Cereales Salmón', 'Treats naturales libres de granos con forma de corazón, sabor salmón irresistible', 11.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 70, '/src/assets/products/premios-sin-cereales.webp'),
+('Kit de Hierba Gatuna', 'Kit completo para cultivar hierba gatera fresca en casa, incluye semillas y maceta', 9.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 55, '/src/assets/products/hierba-gatuna.webp'),
+('Sobres Gourmet Variados', 'Pack de 24 sobres con diferentes sabores en salsa, textura suave perfecta para gatos exigentes', 22.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 48, '/src/assets/products/sobres-gato-variados.webp'),
+('Alimento Salud Urinaria', 'Dieta veterinaria especializada para la salud del tracto urinario, bajo en magnesio', 39.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 25, '/src/assets/products/comida-urinaria-gato.webp'),
+('Comida Liofilizada Premium', 'Alimento crudo liofilizado de pavo e hígado, conserva todos los nutrientes naturales', 44.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 20, '/src/assets/products/comida-liofilizada-gato.webp'),
+('Pienso Indoor Gatos Caseros', 'Fórmula especial para gatos de interior, control de peso y reducción de olores', 28.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 42, '/src/assets/products/comida-seca-gato-salmon.webp'),
+('Treats Dentales para Gatos', 'Premios crujientes que ayudan a limpiar los dientes y refrescar el aliento', 13.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 65, '/src/assets/products/snacks-gato-pollo.webp'),
+('Comida Húmeda Sterilized', 'Alimento húmedo especial para gatos esterilizados, control de peso y saciedad prolongada', 21.99, '3a8480d4-0b90-4edd-81d1-47c8c6823e71', 52, '/src/assets/products/latas-gato-multipack.webp');
