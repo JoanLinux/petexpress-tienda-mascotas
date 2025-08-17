@@ -68,12 +68,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Floating Professional Badge */}
-      <div className="absolute top-8 right-8 z-20">
-        <div className="bg-secondary text-secondary-foreground px-6 py-3 rounded-full font-bold text-lg shadow-elegant backdrop-blur-sm">
-          ¡20% OFF!
-        </div>
-      </div>
     </section>
   );
 };
