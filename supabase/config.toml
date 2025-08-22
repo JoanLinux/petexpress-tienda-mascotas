@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.upload-generated-images-final]
 verify_jwt = false
+
+[functions.upload-all-product-images]
+verify_jwt = false

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Package, Tags, DollarSign } from 'lucide-react';
 import { BatchImageUploader } from '@/components/admin/BatchImageUploader';
+import { ProductImageUploader } from '@/components/admin/ProductImageUploader';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -45,6 +46,7 @@ const AdminDashboard = () => {
         </div>
 
         <BatchImageUploader />
+        <ProductImageUploader />
 
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
