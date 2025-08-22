@@ -39,6 +39,7 @@ export const Hero = () => {
                 variant="secondary" 
                 size="lg" 
                 className="group px-8 py-4 text-lg font-semibold shadow-elegant hover:shadow-button transition-elegant"
+                onClick={() => window.location.href = '#productos'}
               >
                 <ShoppingBag className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
                 Ver Menú
@@ -56,10 +57,6 @@ export const Hero = () => {
 
             {/* Professional Features */}
             <div className="flex flex-wrap justify-center gap-8 pt-8">
-              <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
-                <Clock className="h-5 w-5 text-accent" />
-                <span className="font-medium">Delivery disponible</span>
-              </div>
               <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
                 <Heart className="h-5 w-5 text-accent" />
                 <span className="font-medium">Tradición desde 1907</span>

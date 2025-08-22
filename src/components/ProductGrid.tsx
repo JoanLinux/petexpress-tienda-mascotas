@@ -90,14 +90,14 @@ export const ProductGrid = () => {
 
   if (loading) {
     return (
-      <section className="py-16 px-4 bg-accent/20">
+      <section id="productos" className="py-16 px-4 bg-accent/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Productos Destacados
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Los productos más nuevos y populares de nuestra tienda
+              Descubre los mejores platillos y bebidas de nuestra tradición culinaria
             </p>
           </div>
           <div className="flex items-center justify-center h-64">
@@ -109,16 +109,16 @@ export const ProductGrid = () => {
   }
 
   return (
-    <section className="py-16 px-4 bg-accent/20">
+    <section id="productos" className="py-16 px-4 bg-background">
       <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Productos Destacados
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Los productos más nuevos y populares de nuestra tienda
-            </p>
-          </div>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
+            Productos Destacados
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Descubre los mejores platillos y bebidas de nuestra tradición culinaria
+          </p>
+        </div>
 
           {products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -136,7 +136,7 @@ export const ProductGrid = () => {
               </p>
             </div>
           )}
-      </div>
-    </section>
+        </div>
+      </section>
   );
 };

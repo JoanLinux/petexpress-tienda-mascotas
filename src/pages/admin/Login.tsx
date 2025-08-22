@@ -53,7 +53,7 @@ const AdminLogin = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-primary">
-            Administración PerrioStore
+            Administración Casa Beatricita
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -65,7 +65,7 @@ const AdminLogin = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@perriostore.com"
+                placeholder="admin@casabeatricita.com"
                 required
                 disabled={loading}
               />

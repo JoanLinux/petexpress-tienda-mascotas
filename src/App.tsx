@@ -17,6 +17,7 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminCategories from "./pages/admin/Categories";
 import AdminPromotions from "./pages/admin/Promotions";
+import AdminOrders from "./pages/admin/Orders";
 import SearchResults from "./pages/SearchResults";
 import Auth from "./pages/Auth";
 
@@ -57,6 +58,11 @@ const App = () => (
               <Route path="/admin/promotions" element={
                 <ProtectedRoute>
                   <AdminPromotions />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/orders" element={
+                <ProtectedRoute>
+                  <AdminOrders />
                 </ProtectedRoute>
               } />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

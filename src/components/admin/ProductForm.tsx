@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { DirectImageUploader } from './DirectImageUploader';
 
 interface Product {
   id?: string;
@@ -205,17 +206,10 @@ export const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) 
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="image_url">URL de Imagen</Label>
-            <Input
-              id="image_url"
-              type="url"
-              value={formData.image_url}
-              onChange={(e) => handleChange('image_url', e.target.value)}
-              placeholder="https://ejemplo.com/imagen.jpg"
-              disabled={loading}
-            />
-          </div>
+          <DirectImageUploader
+            currentImageUrl={formData.image_url}
+            onImageUploaded={(url) => handleChange('image_url', url)}
+          />
 
           <div className="flex items-center space-x-2">
             <Switch

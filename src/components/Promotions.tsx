@@ -118,7 +118,7 @@ export const Promotions = () => {
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             No te pierdas nuestras ofertas exclusivas y descuentos especiales 
-            para el cuidado de tu mascota
+            en nuestros deliciosos platillos y bebidas
           </p>
         </div>
 

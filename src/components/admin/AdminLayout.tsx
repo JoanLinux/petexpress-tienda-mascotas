@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
-import { Package, Tags, LayoutDashboard, LogOut, Percent } from 'lucide-react';
+import { Package, Tags, LayoutDashboard, LogOut, Percent, ClipboardList } from 'lucide-react';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -16,6 +16,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { name: 'Productos', href: '/admin/products', icon: Package },
     { name: 'Categorías', href: '/admin/categories', icon: Tags },
     { name: 'Promociones', href: '/admin/promotions', icon: Percent },
+    { name: 'Pedidos', href: '/admin/orders', icon: ClipboardList },
   ];
 
   return (
@@ -25,7 +26,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-primary">PerrioStore Admin</h1>
+              <h1 className="text-xl font-bold text-primary">Casa Beatricita Admin</h1>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-muted-foreground">

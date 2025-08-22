@@ -7,7 +7,7 @@ import { toast } from "sonner";
 // Import hyperrealistic icons
 import accesoriosIcon from "@/assets/icons/accesorios-icon.webp";
 import comidaGatosIcon from "@/assets/icons/comida-gatos-icon.webp";
-import comidaPerrosIcon from "@/assets/icons/comida-perros-icon.webp";
+import comidaPlatosIcon from "@/assets/icons/comida-perros-icon.webp";
 import disfracesIcon from "@/assets/icons/disfraces-icon.webp";
 import higieneIcon from "@/assets/icons/higiene-icon.webp";
 import juguetesIcon from "@/assets/icons/juguetes-icon.webp";
@@ -24,14 +24,14 @@ interface Category {
 const getCategoryIcon = (categoryName: string): string => {
   const iconMap: { [key: string]: string } = {
     "Accesorios": accesoriosIcon,
-    "Comida para Gatos": comidaGatosIcon,
-    "Comida para Perros": comidaPerrosIcon,
+    "Bebidas": comidaGatosIcon,
+    "Platillos": comidaPlatosIcon,
     "Disfraces": disfracesIcon,
     "Higiene": higieneIcon,
     "Juguetes": juguetesIcon,
     "Salud": saludIcon,
     // Fallbacks para otras categorías
-    "Comida": comidaPerrosIcon,
+    "Comida": comidaPlatosIcon,
     "Medicamentos": saludIcon,
     "Limpieza": higieneIcon,
     "Entretenimiento": juguetesIcon,
