@@ -5,7 +5,7 @@ import pawLogo from "@/assets/paw-logo.png";
 export const Footer = () => {
   const handleWhatsAppContact = () => {
     const phoneNumber = "+1234567890"; // Reemplaza con tu número real
-    const message = "¡Hola! Me interesa conocer más sobre los productos de PetExpress";
+    const message = "¡Hola! Me interesa conocer más sobre Casa Beatricita y sus platillos";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -17,12 +17,12 @@ export const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <img src={pawLogo} alt="PetExpress" className="h-8 w-8 brightness-0 invert" />
-              <h3 className="text-xl font-bold">PetExpress</h3>
+              <img src="/lovable-uploads/d1f703d4-7546-4d71-b50a-d04d17d5f574.png" alt="Casa Beatricita" className="h-8 w-8 brightness-0 invert" />
+              <h3 className="text-xl font-bold">Casa Beatricita</h3>
             </div>
             <p className="text-background/80 text-sm">
-              Tu tienda de confianza para el cuidado y felicidad de tu mascota. 
-              Productos de calidad al mejor precio.
+              Deleitando paladares desde 1907 con auténtica comida mexicana 
+              de tradición y calidad excepcional.
             </p>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" className="text-background hover:text-primary">
@@ -38,10 +38,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold">Enlaces Rápidos</h4>
             <ul className="space-y-2 text-sm text-background/80">
-              <li><a href="#" className="hover:text-primary transition-colors">Catálogo</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Menú</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">Promociones</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">Mi Cuenta</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Historial de Pedidos</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Mis Pedidos</a></li>
             </ul>
           </div>
 
@@ -49,10 +49,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold">Categorías</h4>
             <ul className="space-y-2 text-sm text-background/80">
-              <li><a href="#" className="hover:text-primary transition-colors">Comida</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Juguetes</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Camas</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Medicina</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Especialidades</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Bebidas</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Chilaquiles</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Tequilas y Mezcal</a></li>
             </ul>
           </div>
 
@@ -62,15 +62,15 @@ export const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm text-background/80">
                 <MapPin className="h-4 w-4 text-primary" />
-                Calle Principal 123, Ciudad
+                Terraza Palacio de Hierro: Mitikah & Santa Fe
               </div>
               <div className="flex items-center gap-2 text-sm text-background/80">
                 <Phone className="h-4 w-4 text-primary" />
-                +1 (234) 567-8900
+                +52 (55) 1234-5678
               </div>
               <div className="flex items-center gap-2 text-sm text-background/80">
                 <Mail className="h-4 w-4 text-primary" />
-                contacto@petexpress.com
+                contacto@casabeatricita.com.mx
               </div>
               <Button 
                 onClick={handleWhatsAppContact}
@@ -88,7 +88,7 @@ export const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-background/20 pt-8 text-center">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/80">
-            <p>&copy; 2024 PetExpress. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Casa Beatricita. Todos los derechos reservados.</p>
             <div className="flex gap-4">
               <a href="#" className="hover:text-primary transition-colors">Términos de Servicio</a>
               <a href="#" className="hover:text-primary transition-colors">Política de Privacidad</a>

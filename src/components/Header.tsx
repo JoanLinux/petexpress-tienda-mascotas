@@ -33,8 +33,8 @@ export const Header = () => {
       <div className="container flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img src={pawLogo} alt="PetExpress" className="h-8 w-8" />
-          <h1 className="text-xl font-bold text-primary">PetExpress</h1>
+          <img src="/lovable-uploads/d1f703d4-7546-4d71-b50a-d04d17d5f574.png" alt="Casa Beatricita" className="h-8 w-8" />
+          <h1 className="text-xl font-bold text-primary">Casa Beatricita</h1>
         </div>
 
         {/* Search Bar (Hidden on mobile) */}
@@ -45,7 +45,7 @@ export const Header = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar productos para mascotas..."
+              placeholder="Buscar platillos y bebidas..."
               className="w-full pl-10 pr-4 py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-ring focus:border-transparent"
             />
           </form>

@@ -29,7 +29,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem('petstore-cart');
+    const savedCart = localStorage.getItem('casa-beatricita-cart');
     if (savedCart) {
       try {
         setItems(JSON.parse(savedCart));
@@ -41,7 +41,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Save cart to localStorage whenever items change
   useEffect(() => {
-    localStorage.setItem('petstore-cart', JSON.stringify(items));
+    localStorage.setItem('casa-beatricita-cart', JSON.stringify(items));
   }, [items]);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -62,7 +62,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
         
         toast({
-          title: "Producto actualizado",
+          title: "¡Cantidad actualizada!",
           description: `${product.name} - Cantidad: ${existingItem.quantity + 1}`,
         });
         
@@ -72,10 +72,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             : item
         );
       } else {
-        toast({
-          title: "Producto agregado",
-          description: `${product.name} se agregó al carrito`,
-        });
+      toast({
+        title: "¡Agregado al pedido!",
+        description: `${product.name} se agregó a tu pedido`,
+      });
         
         return [...prevItems, { ...product, quantity: 1 }];
       }
@@ -87,8 +87,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const item = prevItems.find(item => item.id === id);
       if (item) {
         toast({
-          title: "Producto eliminado",
-          description: `${item.name} se eliminó del carrito`,
+          title: "¡Platillo eliminado!",
+          description: `${item.name} se eliminó de tu pedido`,
         });
       }
       return prevItems.filter(item => item.id !== id);
@@ -122,8 +122,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearCart = () => {
     setItems([]);
     toast({
-      title: "Carrito vaciado",
-      description: "Todos los productos fueron eliminados del carrito",
+      title: "Pedido vaciado",
+      description: "Todos los platillos fueron eliminados de tu pedido",
     });
   };
 

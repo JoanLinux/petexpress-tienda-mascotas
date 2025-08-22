@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Heart, Truck } from "lucide-react";
-import chugHeroImage from "@/assets/chug-hero-bg.jpg";
+import { ShoppingBag, Heart, Clock } from "lucide-react";
+import casaBeatricitaHero from "@/assets/casa-beatricita-hero.jpg";
 
 export const Hero = () => {
   return (
@@ -8,8 +8,8 @@ export const Hero = () => {
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0">
         <img 
-          src={chugHeroImage} 
-          alt="Beautiful CHUG dog" 
+          src={casaBeatricitaHero} 
+          alt="Casa Beatricita - Auténtica cocina mexicana" 
           className="w-full h-full object-cover object-center"
         />
         {/* Gradient overlay from dark at bottom to transparent at top */}
@@ -22,14 +22,15 @@ export const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-7xl font-bold leading-tight text-white drop-shadow-2xl">
-                Todo para tu 
-                <span className="text-secondary drop-shadow-lg"> mascota</span>
-                <br />en un solo lugar
+                Casa
+                <span className="text-accent drop-shadow-lg"> Beatricita</span>
+                <br />
+                <span className="text-3xl md:text-4xl font-light">Sabor y Tradición</span>
               </h1>
               
               <p className="text-xl md:text-2xl text-white/95 max-w-2xl mx-auto font-light drop-shadow-lg">
-                Descubre la mejor selección de comida, juguetes, camas y medicina 
-                para hacer feliz a tu compañero peludo.
+                Deleitando paladares desde 1907 con auténtica cocina mexicana.
+                Descubre nuestros platillos tradicionales y bebidas artesanales.
               </p>
             </div>
 
@@ -40,7 +41,7 @@ export const Hero = () => {
                 className="group px-8 py-4 text-lg font-semibold shadow-elegant hover:shadow-button transition-elegant"
               >
                 <ShoppingBag className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-                Ver Catálogo
+                Ver Menú
               </Button>
               
               <Button 
@@ -49,19 +50,19 @@ export const Hero = () => {
                 className="px-8 py-4 text-lg font-semibold border-2 border-white bg-white/20 text-white hover:bg-white hover:text-primary backdrop-blur-sm transition-elegant"
               >
                 <Heart className="mr-3 h-6 w-6" />
-                Lista de Deseos
+                Favoritos
               </Button>
             </div>
 
             {/* Professional Features */}
             <div className="flex flex-wrap justify-center gap-8 pt-8">
               <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
-                <Truck className="h-5 w-5 text-secondary" />
-                <span className="font-medium">Envío gratis desde $50</span>
+                <Clock className="h-5 w-5 text-accent" />
+                <span className="font-medium">Delivery disponible</span>
               </div>
               <div className="flex items-center gap-3 text-white backdrop-blur-sm bg-white/20 rounded-full px-6 py-3 drop-shadow-lg">
-                <Heart className="h-5 w-5 text-secondary" />
-                <span className="font-medium">Productos de calidad premium</span>
+                <Heart className="h-5 w-5 text-accent" />
+                <span className="font-medium">Tradición desde 1907</span>
               </div>
             </div>
           </div>

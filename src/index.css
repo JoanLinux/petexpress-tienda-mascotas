@@ -2,128 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Professional Pet Store Design System - Elegant and Modern */
+/* Casa Beatricita Design System - Mexican Restaurant Theme */
 
 @layer base {
   :root {
-    /* Professional Color Palette */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Casa Beatricita Color Palette */
+    --background: 45 35% 95%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Premium Primary: Rich Deep Blue */
-    --primary: 223 47% 23%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 223 47% 33%;
-    --primary-light: 223 47% 43%;
+    /* Primary: Casa Beatricita Red */
+    --primary: 0 65% 45%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 25 85% 55%;
+    --primary-light: 0 55% 55%;
 
-    /* Elegant Secondary: Warm Gold Accent */
-    --secondary: 43 74% 66%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --secondary-dark: 43 74% 56%;
+    /* Secondary: Warm Cream */
+    --secondary: 45 25% 85%;
+    --secondary-foreground: 0 0% 15%;
+    --secondary-dark: 0 45% 35%;
 
-    --muted: 210 40% 98%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 45 15% 90%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Sophisticated Accent: Soft Cream */
-    --accent: 48 100% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    /* Accent: Mexican Gold */
+    --accent: 25 85% 55%;
+    --accent-foreground: 0 0% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 223 47% 23%;
+    --border: 45 20% 85%;
+    --input: 45 20% 85%;
+    --ring: 0 65% 45%;
 
     --radius: 0.75rem;
 
-    /* Professional Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(223 47% 23%), hsl(223 47% 33%));
-    --gradient-hero: linear-gradient(135deg, hsl(223 47% 23% / 0.95), hsl(223 47% 33% / 0.9));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(48 100% 98%));
-    --gradient-premium: linear-gradient(135deg, hsl(43 74% 66%), hsl(43 74% 76%));
-    --gradient-elegant: linear-gradient(145deg, hsl(223 47% 23%), hsl(43 74% 66%));
+    /* Casa Beatricita Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(0 65% 45%) 0%, hsl(25 85% 55%) 50%, hsl(45 75% 65%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+    --gradient-premium: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-elegant: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%);
 
-    /* Professional Shadows */
-    --shadow-primary: 0 20px 60px -15px hsl(223 47% 23% / 0.4);
-    --shadow-card: 0 8px 30px -8px hsl(223 47% 23% / 0.12);
-    --shadow-button: 0 4px 15px -3px hsl(223 47% 23% / 0.25);
-    --shadow-elegant: 0 25px 80px -20px hsl(223 47% 23% / 0.3);
+    /* Mexican Restaurant Shadows */
+    --shadow-primary: 0 20px 60px -15px hsl(var(--primary) / 0.4);
+    --shadow-card: 0 8px 30px -8px hsl(var(--primary) / 0.12);
+    --shadow-button: 0 4px 15px -3px hsl(var(--primary) / 0.25);
+    --shadow-elegant: 0 25px 80px -20px hsl(var(--primary) / 0.3);
 
-    /* Smooth Professional Animations */
+    /* Smooth Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    --sidebar-background: 223 47% 23%;
+    --sidebar-background: 0 65% 45%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 43 74% 66%;
-    --sidebar-primary-foreground: 222.2 84% 4.9%;
-    --sidebar-accent: 223 47% 33%;
+    --sidebar-primary: 25 85% 55%;
+    --sidebar-primary-foreground: 0 0% 15%;
+    --sidebar-accent: 0 55% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 223 47% 33%;
-    --sidebar-ring: 43 74% 66%;
+    --sidebar-border: 0 55% 55%;
+    --sidebar-ring: 25 85% 55%;
   }
 
   .dark {
-    /* Dark mode with professional elegance */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with Casa Beatricita elegance */
+    --background: 0 0% 8%;
+    --foreground: 45 25% 95%;
 
-    --card: 223 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 45 25% 95%;
 
-    --popover: 223 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 45 25% 95%;
 
-    --primary: 43 74% 66%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --primary-glow: 43 74% 76%;
-    --primary-light: 43 74% 86%;
+    --primary: 0 65% 55%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 25 85% 65%;
+    --primary-light: 0 55% 65%;
 
-    --secondary: 223 47% 33%;
-    --secondary-foreground: 210 40% 98%;
-    --secondary-dark: 223 47% 23%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 45 25% 95%;
+    --secondary-dark: 0 45% 25%;
 
-    --muted: 223 47% 15%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 45 15% 75%;
 
-    --accent: 223 47% 15%;
-    --accent-foreground: 43 74% 66%;
+    --accent: 25 85% 65%;
+    --accent-foreground: 0 0% 15%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 223 47% 15%;
-    --input: 223 47% 15%;
-    --ring: 43 74% 66%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 65% 55%;
 
-    /* Dark mode professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(43 74% 66%), hsl(43 74% 76%));
-    --gradient-hero: linear-gradient(135deg, hsl(222.2 84% 4.9% / 0.95), hsl(223 47% 15% / 0.9));
-    --gradient-card: linear-gradient(145deg, hsl(223 47% 8%), hsl(223 47% 15%));
-    --gradient-premium: linear-gradient(135deg, hsl(223 47% 23%), hsl(223 47% 33%));
-    --gradient-elegant: linear-gradient(145deg, hsl(43 74% 66%), hsl(223 47% 23%));
+    /* Dark mode Casa Beatricita gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8% / 0.95), hsl(0 0% 15% / 0.9));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    --gradient-premium: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-elegant: linear-gradient(145deg, hsl(var(--primary)), hsl(var(--accent)));
 
-    --shadow-primary: 0 20px 60px -15px hsl(43 74% 66% / 0.4);
-    --shadow-card: 0 8px 30px -8px hsl(43 74% 66% / 0.15);
-    --shadow-button: 0 4px 15px -3px hsl(43 74% 66% / 0.3);
-    --shadow-elegant: 0 25px 80px -20px hsl(43 74% 66% / 0.35);
+    --shadow-primary: 0 20px 60px -15px hsl(var(--primary) / 0.4);
+    --shadow-card: 0 8px 30px -8px hsl(var(--primary) / 0.15);
+    --shadow-button: 0 4px 15px -3px hsl(var(--primary) / 0.3);
+    --shadow-elegant: 0 25px 80px -20px hsl(var(--primary) / 0.35);
 
-    --sidebar-background: 222.2 84% 4.9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 43 74% 66%;
-    --sidebar-primary-foreground: 222.2 84% 4.9%;
-    --sidebar-accent: 223 47% 15%;
-    --sidebar-accent-foreground: 43 74% 66%;
-    --sidebar-border: 223 47% 15%;
-    --sidebar-ring: 43 74% 66%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 45 25% 95%;
+    --sidebar-primary: 25 85% 65%;
+    --sidebar-primary-foreground: 0 0% 15%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 25 85% 65%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 25 85% 65%;
   }
 }
 
