@@ -7,6 +7,7 @@ import { BatchImageUploader } from '@/components/admin/BatchImageUploader';
 import { ProductImageUploader } from '@/components/admin/ProductImageUploader';
 import { MenuImageUploader } from '@/components/admin/MenuImageUploader';
 import { CorrectImageUploader } from '@/components/admin/CorrectImageUploader';
+import { WorkingImageUploader } from '@/components/admin/WorkingImageUploader';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -47,6 +48,7 @@ const AdminDashboard = () => {
           </p>
         </div>
 
+        <WorkingImageUploader />
         <CorrectImageUploader />
         <BatchImageUploader />
         <ProductImageUploader />

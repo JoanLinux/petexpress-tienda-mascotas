@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.upload-correct-images]
 verify_jwt = false
+
+[functions.generate-and-upload-images-working]
+verify_jwt = false
