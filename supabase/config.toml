@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.upload-menu-images]
 verify_jwt = false
+
+[functions.upload-correct-images]
+verify_jwt = false

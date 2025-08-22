@@ -6,6 +6,7 @@ import { Package, Tags, DollarSign } from 'lucide-react';
 import { BatchImageUploader } from '@/components/admin/BatchImageUploader';
 import { ProductImageUploader } from '@/components/admin/ProductImageUploader';
 import { MenuImageUploader } from '@/components/admin/MenuImageUploader';
+import { CorrectImageUploader } from '@/components/admin/CorrectImageUploader';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -46,6 +47,7 @@ const AdminDashboard = () => {
           </p>
         </div>
 
+        <CorrectImageUploader />
         <BatchImageUploader />
         <ProductImageUploader />
         <MenuImageUploader />
