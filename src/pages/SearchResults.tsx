@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import defaultMexicanDish from "@/assets/default-mexican-dish.jpg";
 import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -92,7 +93,7 @@ const SearchResults = () => {
                         id: product.id,
                         name: product.name,
                         price: product.price,
-                        image: product.image_url || "/placeholder.svg",
+                        image: product.image_url || defaultMexicanDish,
                         category: product.categories?.name || "Sin categoría",
                         rating: Math.min(5, Math.max(1, Math.floor((product.product_views?.length || 0) / 10) + 1)),
                         inStock: product.stock > 0,

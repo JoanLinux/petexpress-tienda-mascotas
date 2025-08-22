@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import defaultMexicanDish from "@/assets/default-mexican-dish.jpg";
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Header } from '@/components/Header';
@@ -82,7 +83,7 @@ const ProductsByCategory = () => {
     name: product.name,
     price: product.price,
     rating: 5, // Default rating - could be improved with actual ratings
-    image: product.image_url || "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&h=300&fit=crop",
+    image: product.image_url || defaultMexicanDish,
     category: product.categories?.name || 'Sin categoría',
     inStock: product.stock > 0,
     maxStock: product.stock
