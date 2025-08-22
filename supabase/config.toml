@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.generate-and-upload-all-images]
 verify_jwt = false
+
+[functions.upload-generated-images-final]
+verify_jwt = false

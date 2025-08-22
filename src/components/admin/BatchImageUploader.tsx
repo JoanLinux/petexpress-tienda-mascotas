@@ -13,9 +13,9 @@ export const BatchImageUploader = () => {
     setIsUploading(true);
     
     try {
-      console.log('Starting complete image generation and upload...');
+      console.log('Starting upload of pre-generated images...');
       
-      const { data, error } = await supabase.functions.invoke('generate-and-upload-all-images');
+      const { data, error } = await supabase.functions.invoke('upload-generated-images-final');
       
       if (error) {
         console.error('Function error:', error);
@@ -23,14 +23,14 @@ export const BatchImageUploader = () => {
       }
 
       if (!data.success) {
-        throw new Error(data.error || 'Error al generar y subir imágenes');
+        throw new Error(data.error || 'Error al subir imágenes');
       }
 
-      console.log('Generation results:', data.results);
+      console.log('Upload results:', data.results);
 
       toast({
         title: "¡Éxito!",
-        description: `Se generaron y subieron ${data.successCount} de ${data.totalCount} imágenes correctamente.`,
+        description: `Se subieron ${data.successCount} de ${data.totalCount} imágenes correctamente.`,
       });
 
       // Reload page to see changes
@@ -39,11 +39,11 @@ export const BatchImageUploader = () => {
       }, 2000);
 
     } catch (error) {
-      console.error('Error generating and uploading images:', error);
+      console.error('Error uploading images:', error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "No se pudieron generar y subir las imágenes. Inténtalo de nuevo.",
+        description: "No se pudieron subir las imágenes. Inténtalo de nuevo.",
       });
     } finally {
       setIsUploading(false);
@@ -53,13 +53,13 @@ export const BatchImageUploader = () => {
   return (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle>Generar y Subir Imágenes AI</CardTitle>
+        <CardTitle>Subir Imágenes Generadas</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            Esto generará imágenes AI para todos los productos y categorías, las subirá a 
-            Supabase Storage y actualizará las URLs en la base de datos.
+            Esto subirá las 10 imágenes que ya generé (5 productos + 5 categorías) 
+            a Supabase Storage y actualizará las URLs en la base de datos.
           </p>
           
           <Button
@@ -71,12 +71,12 @@ export const BatchImageUploader = () => {
             {isUploading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generando y subiendo imágenes...
+                Subiendo imágenes...
               </>
             ) : (
               <>
                 <Upload className="mr-2 h-4 w-4" />
-                Generar y Subir Todas las Imágenes
+                Subir Imágenes Generadas
               </>
             )}
           </Button>
