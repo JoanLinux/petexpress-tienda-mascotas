@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.upload-generated-images]
 verify_jwt = false
+
+[functions.generate-and-upload-all-images]
+verify_jwt = false
