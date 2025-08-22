@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { CategoryImageUploader } from './CategoryImageUploader';
 
 interface Category {
   id?: string;
@@ -118,17 +119,10 @@ export const CategoryForm = ({ category, onSuccess, onCancel }: CategoryFormProp
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="image_url">URL de Imagen</Label>
-            <Input
-              id="image_url"
-              type="url"
-              value={formData.image_url}
-              onChange={(e) => handleChange('image_url', e.target.value)}
-              placeholder="https://ejemplo.com/imagen.jpg"
-              disabled={loading}
-            />
-          </div>
+          <CategoryImageUploader
+            currentImageUrl={formData.image_url}
+            onImageUploaded={(url) => handleChange('image_url', url)}
+          />
 
           <div className="flex justify-end space-x-2">
             <Button 

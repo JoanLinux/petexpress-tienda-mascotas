@@ -3,6 +3,7 @@ import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Package, Tags, DollarSign } from 'lucide-react';
+import { BatchImageUploader } from '@/components/admin/BatchImageUploader';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -42,6 +43,8 @@ const AdminDashboard = () => {
             Resumen general del restaurante Casa Beatricita
           </p>
         </div>
+
+        <BatchImageUploader />
 
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
