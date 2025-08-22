@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { DirectImageUploader } from './DirectImageUploader';
+import { SmartImageUploader } from './SmartImageUploader';
 
 interface Product {
   id?: string;
@@ -206,9 +206,10 @@ export const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) 
             />
           </div>
 
-          <DirectImageUploader
+          <SmartImageUploader
             currentImageUrl={formData.image_url}
             onImageUploaded={(url) => handleChange('image_url', url)}
+            productName={formData.name}
           />
 
           <div className="flex items-center space-x-2">
