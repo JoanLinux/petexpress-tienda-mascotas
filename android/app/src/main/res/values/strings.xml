@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">PetExpress</string>
-    <string name="title_activity_main">PetExpress</string>
+    <string name="app_name">Casa Beatricita</string>
+    <string name="title_activity_main">Casa Beatricita</string>
     <string name="package_name">com.joanlinux.petexpress</string>
     <string name="custom_url_scheme">com.joanlinux.petexpress</string>
 </resources>
