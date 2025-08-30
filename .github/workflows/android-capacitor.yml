@@ -14,6 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Assert android dir exists (fail fast)
+        run: |
+          ls -la
+          test -d android || (echo "ERROR: android/ no existe en el repo" && exit 1)
+          ls -la android
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -22,10 +28,6 @@ jobs:
 
       - name: Install deps
         run: npm ci
-
-      # Asegúrate de que en package.json esté @capacitor/android
-      - name: Ensure Capacitor Android
-        run: npm i @capacitor/android
 
       - name: Build web (Vite)
         run: npm run build
@@ -40,24 +42,21 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Capacitor init (first run safe)
-        run: |
-          npx cap init "Casa Beatricita" "com.casabeatricita.app" --web-dir=dist || true
-
-      - name: Add Android platform (idempotent)
-        run: npx cap add android || true
-
-      - name: Sync/copy web to Android
+      - name: Sync Capacitor (usa android/ del repo)
         run: |
           npx cap copy android
           npx cap sync android
 
       - name: Build Release APK
         working-directory: android
-        run: ./gradlew assembleRelease --no-daemon
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: |
+            android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/apk/release/app-release-unsigned.apk
