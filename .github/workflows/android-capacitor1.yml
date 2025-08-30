@@ -14,15 +14,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Asegúrate de que la carpeta android/ esté en el repo
       - name: Assert android dir exists (fail fast)
         run: |
-          test -d android || (echo "ERROR: android/ no existe" && exit 1)
+          test -d android || (echo "ERROR: android/ no existe en el repo" && exit 1)
+          ls -la android
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
@@ -30,17 +32,17 @@ jobs:
       - name: Build web (Vite)
         run: npm run build
 
-      # IMPORTANTE: primero Android SDK…
+      # 1) Android SDK primero
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # …después Java 21 (para que no nos pisen JAVA_HOME)
-      - id: jdk
-        name: Setup Java 21
+      # 2) Luego Java 21 (para que no nos pisen JAVA_HOME con 17)
+      - name: Setup Java 21
+        id: jdk
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
           cache: gradle
 
       - name: Check Java versions
@@ -49,21 +51,19 @@ jobs:
           java -version
           javac -version
 
-      # Forzar a Gradle a usar este JAVA_HOME=21
+      # Forzar a Gradle a usar Java 21
       - name: Pin JAVA_HOME 21 into gradle.properties
         run: |
           echo "org.gradle.java.home=${JAVA_HOME}" >> android/gradle.properties
-          echo "Wrote org.gradle.java.home to android/gradle.properties"
+          tail -n 3 android/gradle.properties || true
 
-      - name: Sync Capacitor
+      - name: Sync Capacitor (usa android/ del repo)
         run: |
           npx cap copy android
           npx cap sync android
 
       - name: Build Release APK
         working-directory: android
-        env:
-          JAVA_HOME: ${{ env.JAVA_HOME }}  # redundante, pero explícito
         run: |
           chmod +x gradlew
           ./gradlew --version
