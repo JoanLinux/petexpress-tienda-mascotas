@@ -33,6 +33,14 @@ jobs:
           java-version: "17"
           cache: "gradle"
 
+      - name: Check Java
+        run: |
+          java -version
+          javac -version
+      - name: Check Java
+        run: |
+          java -version
+          javac -version
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
