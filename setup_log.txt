@@ -1,0 +1,138 @@
++ set -euo pipefail
++ APP_NAME='Casa Beatricita'
++ APP_ID_DEFAULT=com.casabeatricita.app
++ WORKFLOW_PATH=.github/workflows/android-capacitor.yml
++ say 'Verificando raíz del proyecto…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Verificando raíz del proyecto…'
+
+[1;96m[INFO][0m Verificando raíz del proyecto…
++ '[' -f package.json ']'
++ '[' -f vite.config.ts ']'
++ say 'Instalando dependencias de Capacitor…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Instalando dependencias de Capacitor…'
+
+[1;96m[INFO][0m Instalando dependencias de Capacitor…
++ npm i -D @capacitor/cli
++ npm i @capacitor/core @capacitor/android
++ say 'Asegurando script build en package.json…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Asegurando script build en package.json…'
+
+[1;96m[INFO][0m Asegurando script build en package.json…
++ node -
+{
+  dev: 'vite',
+  build: 'vite build',
+  'build:dev': 'vite build --mode development',
+  lint: 'eslint .',
+  preview: 'vite preview'
+}
++ say 'Ajustando capacitor.config.ts…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Ajustando capacitor.config.ts…'
+
+[1;96m[INFO][0m Ajustando capacitor.config.ts…
++ '[' -f capacitor.config.ts ']'
++ node -
+capacitor.config.ts actualizado
++ say 'Build Vite…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Build Vite…'
+
+[1;96m[INFO][0m Build Vite…
++ npm ci
+
+added 474 packages, and audited 475 packages in 8s
+
+88 packages are looking for funding
+  run `npm fund` for details
+
+3 moderate severity vulnerabilities
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
++ npm run build
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+vite v5.4.19 building for production...
+transforming...
+✓ 1848 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  1.18 kB │ gzip:   0.50 kB
+dist/assets/salud-icon-BGKol_8S.webp            12.07 kB
+dist/assets/comida-gatos-icon-LECf8qsw.webp     16.42 kB
+dist/assets/higiene-icon-CTW50Pt8.webp          17.87 kB
+dist/assets/comida-perros-icon-Zuioocev.webp    22.52 kB
+dist/assets/juguetes-icon-B2dgDnAw.webp         25.20 kB
+dist/assets/disfraces-icon-D-Z4xWG7.webp        31.14 kB
+dist/assets/accesorios-icon-BbQQFGYg.webp       38.77 kB
+dist/assets/default-mexican-dish-Cubh_7b3.jpg  125.83 kB
+dist/assets/casa-beatricita-hero-BEa_SQeh.jpg  186.49 kB
+dist/assets/index-Ba_oH9L6.css                  83.09 kB │ gzip:  13.51 kB
+dist/assets/index-BzCaHLdm.js                  627.85 kB │ gzip: 184.77 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.64s
++ '[' '!' -d android ']'
++ say 'android/ ya existe.'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'android/ ya existe.'
+
+[1;96m[INFO][0m android/ ya existe.
++ say 'Sync Capacitor…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Sync Capacitor…'
+
+[1;96m[INFO][0m Sync Capacitor…
++ npx cap copy android
+✔ Copying web assets from dist to android/app/src/main/assets/public in 31.08ms
+✔ Creating capacitor.config.json in android/app/src/main/assets in 683.92μs
+✔ copy android in 96.25ms
++ npx cap sync android
+✔ Copying web assets from dist to android/app/src/main/assets/public in 25.81ms
+✔ Creating capacitor.config.json in android/app/src/main/assets in 491.53μs
+✔ copy android in 72.14ms
+✔ Updating Android plugins in 12.66ms
+✔ update android in 65.40ms
+[info] Sync finished in 0.192s
++ say 'Creando/actualizando workflow…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Creando/actualizando workflow…'
+
+[1;96m[INFO][0m Creando/actualizando workflow…
++ mkdir -p .github/workflows
++ cat
++ say 'Git commit & push…'
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' 'Git commit & push…'
+
+[1;96m[INFO][0m Git commit & push…
++ git add capacitor.config.ts package.json android .github/workflows/android-capacitor.yml
++ git commit -m 'chore(android): ensure Capacitor android & CI (Java 21) + sync'
++ git push origin main
+To github.com:JoanLinux/petexpress-tienda-mascotas.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'git@github.com:JoanLinux/petexpress-tienda-mascotas.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
++ warn 'Push no realizado (configura PAT/SSH y repite: git push origin main)'
++ printf '\n\033[1;93m[WARN]\033[0m %s\n' 'Push no realizado (configura PAT/SSH y repite: git push origin main)'
+
+[1;93m[WARN][0m Push no realizado (configura PAT/SSH y repite: git push origin main)
++ say Checks:
++ printf '\n\033[1;96m[INFO]\033[0m %s\n' Checks:
+
+[1;96m[INFO][0m Checks:
++ '[' -d android ']'
++ echo '  ✔ android/ existe'
+  ✔ android/ existe
++ '[' -f android/gradlew ']'
++ echo '  ✔ gradlew'
+  ✔ gradlew
++ '[' -f android/app/build/outputs/apk/release/app-release.apk ']'
++ echo '  ℹ Sin APK local (ver Artifact en Actions)'
+  ℹ Sin APK local (ver Artifact en Actions)
