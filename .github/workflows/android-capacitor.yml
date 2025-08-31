@@ -31,7 +31,7 @@ jobs:
       - name: Build web (Vite)
         run: npm run build
 
-      # --- 🔧 Limpieza y regeneración de íconos ---
+      # --- Limpieza total y regeneración de íconos ---
       - name: Clean existing launcher icons (force reset)
         run: |
           rm -f android/app/src/main/res/mipmap-*/ic_launcher*.png || true
@@ -42,8 +42,22 @@ jobs:
           npm i -D @capacitor/assets
           test -f resources/icon.png || (echo "ERROR: resources/icon.png no existe" && exit 1)
           npx capacitor-assets generate --android --verbose
-          # sanity check
-          ls -R android/app/src/main/res/mipmap-* | sed -n '1,60p'
+
+      # --- Validación y reescritura de PNGs (por si algún PNG queda “raro”) ---
+      - name: Validate launcher PNGs and fix if needed
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          set -e
+          for f in android/app/src/main/res/mipmap-*/ic_launcher*.png; do
+            echo "Check $f"
+            file "$f" || true
+            # Reescribe el PNG para asegurar formato válido
+            convert "$f" -strip "$f"
+          done
+          # Listado final
+          ls -l android/app/src/main/res/mipmap-*/ic_launcher*.png | sed -n '1,120p'
+          test -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml || (echo "FALTA ic_launcher.xml adaptive"; exit 1)
 
       # 1) Android SDK primero
       - name: Setup Android SDK
@@ -131,4 +145,3 @@ jobs:
         with:
           name: app-release-unsigned
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-
