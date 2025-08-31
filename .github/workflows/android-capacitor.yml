@@ -31,6 +31,20 @@ jobs:
       - name: Build web (Vite)
         run: npm run build
 
+      # --- 🔧 Limpieza y regeneración de íconos ---
+      - name: Clean existing launcher icons (force reset)
+        run: |
+          rm -f android/app/src/main/res/mipmap-*/ic_launcher*.png || true
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher*.xml || true
+
+      - name: Generate Android assets (icons/splash)
+        run: |
+          npm i -D @capacitor/assets
+          test -f resources/icon.png || (echo "ERROR: resources/icon.png no existe" && exit 1)
+          npx capacitor-assets generate --android --verbose
+          # sanity check
+          ls -R android/app/src/main/res/mipmap-* | sed -n '1,60p'
+
       # 1) Android SDK primero
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -74,7 +88,7 @@ jobs:
           name: app-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
-      # ----- RELEASE firmado (solo si hay secretos) -----
+      # ----- RELEASE firmado (si hay secretos) -----
       - name: Restore keystore & signing vars
         if: ${{ env.ANDROID_KEYSTORE_BASE64 != '' }}
         run: |
@@ -101,8 +115,6 @@ jobs:
       - name: Upload Release APK (signed)
         if: ${{ env.ANDROID_KEYSTORE_BASE64 != '' }}
         uses: actions/upload-artifact@v4
-        env:
-          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         with:
           name: app-release-signed
           path: android/app/build/outputs/apk/release/app-release.apk
