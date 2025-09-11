@@ -40,19 +40,40 @@ serve(async (req) => {
       );
     }
 
-    // Check if user has admin role
-    const { data: userRoles, error: roleError } = await supabase
+    // Check if there are any admins in the system
+    const { data: existingAdmins, error: adminCheckError } = await supabase
       .from('user_roles')
-      .select('role')
-      .eq('user_id', user.id)
+      .select('user_id')
       .eq('role', 'admin');
 
-    if (roleError || !userRoles || userRoles.length === 0) {
-      console.error('Not admin:', roleError);
+    if (adminCheckError) {
+      console.error('Error checking for existing admins:', adminCheckError);
       return new Response(
-        JSON.stringify({ error: 'Se requieren permisos de administrador' }),
-        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Error interno del servidor' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
+    }
+
+    // If no admins exist, allow creating the first admin user
+    const noAdminsExist = !existingAdmins || existingAdmins.length === 0;
+    
+    if (!noAdminsExist) {
+      // Check if current user has admin role
+      const { data: userRoles, error: roleError } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin');
+
+      if (roleError || !userRoles || userRoles.length === 0) {
+        console.error('Not admin:', roleError);
+        return new Response(
+          JSON.stringify({ error: 'Se requieren permisos de administrador' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    } else {
+      console.log('No admins exist, allowing creation of first admin user');
     }
 
     const body = await req.json();
