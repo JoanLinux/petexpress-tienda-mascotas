@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
-import { Package, Tags, LayoutDashboard, LogOut, Percent, ClipboardList } from 'lucide-react';
+import { Package, Tags, LayoutDashboard, LogOut, Percent, ClipboardList, Truck } from 'lucide-react';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -17,6 +17,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { name: 'Categorías', href: '/admin/categories', icon: Tags },
     { name: 'Promociones', href: '/admin/promotions', icon: Percent },
     { name: 'Pedidos', href: '/admin/orders', icon: ClipboardList },
+    { name: 'Entregas', href: '/admin/delivery', icon: Truck },
   ];
 
   return (

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
+import { useGeolocation } from '@/hooks/useGeolocation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,7 +14,8 @@ import { Footer } from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { CreditCard, Truck, MapPin } from 'lucide-react';
+import { CreditCard, Truck, MapPin, Navigation, Loader2 } from 'lucide-react';
+import MapComponent from '@/components/MapComponent';
 
 interface CustomerInfo {
   fullName: string;
@@ -22,6 +24,8 @@ interface CustomerInfo {
   address: string;
   city: string;
   notes: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 const Checkout = () => {
@@ -30,14 +34,30 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('stripe');
+  const [orderType, setOrderType] = useState('delivery');
+  const [showMap, setShowMap] = useState(false);
+  const { latitude, longitude, loading: geoLoading, getCurrentPosition } = useGeolocation();
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
     fullName: '',
     email: user?.email || '',
     phone: '',
     address: '',
     city: '',
-    notes: ''
+    notes: '',
+    latitude: undefined,
+    longitude: undefined
   });
+
+  // Update customer location when geolocation changes
+  useEffect(() => {
+    if (latitude && longitude) {
+      setCustomerInfo(prev => ({
+        ...prev,
+        latitude,
+        longitude
+      }));
+    }
+  }, [latitude, longitude]);
 
   if (items.length === 0) {
     navigate('/cart');
@@ -45,9 +65,9 @@ const Checkout = () => {
   }
 
   const formatPrice = (price: number) => 
-    new Intl.NumberFormat('es-CO', {
+    new Intl.NumberFormat('es-MX', {
       style: 'currency',
-      currency: 'COP',
+      currency: 'MXN',
       minimumFractionDigits: 0,
     }).format(price);
 
@@ -56,7 +76,13 @@ const Checkout = () => {
   };
 
   const validateForm = () => {
-    const required = ['fullName', 'email', 'phone', 'address', 'city'];
+    const required = ['fullName', 'email', 'phone'];
+    
+    // For delivery orders, address and city are required
+    if (orderType === 'delivery') {
+      required.push('address', 'city');
+    }
+    
     for (const field of required) {
       if (!customerInfo[field as keyof CustomerInfo]) {
         toast({
@@ -99,18 +125,56 @@ const Checkout = () => {
   };
 
   const handleCashPayment = async () => {
-    // For cash payments, we just create the order without payment processing
     try {
-      const orderData = {
-        customer_info: customerInfo,
-        items: items,
-        total: totalPrice,
-        payment_method: 'cash',
-        status: 'pending'
-      };
+      // Create the order first
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          customer_name: customerInfo.fullName,
+          customer_email: customerInfo.email,
+          customer_phone: customerInfo.phone,
+          delivery_address: orderType === 'delivery' ? customerInfo.address : null,
+          total_amount: totalPrice,
+          status: 'pending',
+          payment_status: 'pending',
+          order_type: orderType,
+          notes: customerInfo.notes,
+          user_id: user?.id || null
+        })
+        .select()
+        .single();
 
-      // Here you would typically save the order to your database
-      console.log('Cash order created:', orderData);
+      if (orderError) throw orderError;
+
+      // Create order items
+      const orderItems = items.map(item => ({
+        order_id: orderData.id,
+        product_id: item.id,
+        product_name: item.name,
+        product_price: item.price,
+        quantity: item.quantity,
+        subtotal: item.price * item.quantity
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      // Create delivery tracking if it's a delivery order
+      if (orderType === 'delivery') {
+        const { error: trackingError } = await supabase
+          .from('delivery_tracking')
+          .insert({
+            order_id: orderData.id,
+            customer_latitude: customerInfo.latitude,
+            customer_longitude: customerInfo.longitude,
+            status: 'assigned'
+          });
+
+        if (trackingError) console.error('Error creating delivery tracking:', trackingError);
+      }
       
       toast({
         title: "Pedido confirmado",
@@ -118,7 +182,13 @@ const Checkout = () => {
       });
 
       clearCart();
-      navigate('/order-success');
+      
+      // Redirect to order tracking if delivery, otherwise to success page
+      if (orderType === 'delivery') {
+        navigate(`/order-tracking?order=${orderData.id}`);
+      } else {
+        navigate('/order-success');
+      }
     } catch (error) {
       console.error('Error creating cash order:', error);
       toast({
@@ -163,8 +233,48 @@ const Checkout = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center">
+                      <Truck className="h-5 w-5 mr-2" />
+                      Tipo de Pedido
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RadioGroup 
+                      value={orderType} 
+                      onValueChange={setOrderType}
+                      className="space-y-4"
+                    >
+                      <div className="flex items-center space-x-2 p-4 border rounded-lg">
+                        <RadioGroupItem value="delivery" id="delivery" />
+                        <div className="flex-1">
+                          <Label htmlFor="delivery" className="font-medium">
+                            Delivery
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Entrega a domicilio
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2 p-4 border rounded-lg">
+                        <RadioGroupItem value="pickup" id="pickup" />
+                        <div className="flex-1">
+                          <Label htmlFor="pickup" className="font-medium">
+                            Recoger en tienda
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Recoge tu pedido en Casa Beatricita
+                          </p>
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
                       <MapPin className="h-5 w-5 mr-2" />
-                      Información de Entrega
+                      {orderType === 'delivery' ? 'Información de Entrega' : 'Información de Contacto'}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -204,27 +314,87 @@ const Checkout = () => {
                       />
                     </div>
 
-                    <div>
-                      <Label htmlFor="address">Dirección *</Label>
-                      <Input
-                        id="address"
-                        value={customerInfo.address}
-                        onChange={(e) => handleInputChange('address', e.target.value)}
-                        placeholder="Calle, número, apartamento"
-                        required
-                      />
-                    </div>
+                    {orderType === 'delivery' && (
+                      <>
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label htmlFor="address">Dirección *</Label>
+                            <div className="flex gap-2">
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={getCurrentPosition}
+                                disabled={geoLoading}
+                              >
+                                {geoLoading ? (
+                                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                ) : (
+                                  <Navigation className="h-4 w-4 mr-2" />
+                                )}
+                                Usar mi ubicación
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setShowMap(!showMap)}
+                              >
+                                <MapPin className="h-4 w-4 mr-2" />
+                                {showMap ? 'Ocultar mapa' : 'Ver mapa'}
+                              </Button>
+                            </div>
+                          </div>
+                          <Input
+                            id="address"
+                            value={customerInfo.address}
+                            onChange={(e) => handleInputChange('address', e.target.value)}
+                            placeholder="Calle, número, apartamento"
+                            required={orderType === 'delivery'}
+                          />
+                          
+                          {latitude && longitude && (
+                            <p className="text-sm text-muted-foreground">
+                              📍 Ubicación detectada: {latitude.toFixed(6)}, {longitude.toFixed(6)}
+                            </p>
+                          )}
+                        </div>
 
-                    <div>
-                      <Label htmlFor="city">Ciudad *</Label>
-                      <Input
-                        id="city"
-                        value={customerInfo.city}
-                        onChange={(e) => handleInputChange('city', e.target.value)}
-                        placeholder="Tu ciudad"
-                        required
-                      />
-                    </div>
+                        {showMap && (
+                          <div className="mt-4">
+                            <MapComponent
+                              customerLocation={
+                                customerInfo.latitude && customerInfo.longitude
+                                  ? { lat: customerInfo.latitude, lng: customerInfo.longitude }
+                                  : latitude && longitude
+                                  ? { lat: latitude, lng: longitude }
+                                  : undefined
+                              }
+                              onLocationUpdate={(location) => {
+                                setCustomerInfo(prev => ({
+                                  ...prev,
+                                  latitude: location.lat,
+                                  longitude: location.lng
+                                }));
+                              }}
+                              height="300px"
+                              showLocationInput={true}
+                            />
+                          </div>
+                        )}
+
+                        <div>
+                          <Label htmlFor="city">Ciudad *</Label>
+                          <Input
+                            id="city"
+                            value={customerInfo.city}
+                            onChange={(e) => handleInputChange('city', e.target.value)}
+                            placeholder="Tu ciudad"
+                            required={orderType === 'delivery'}
+                          />
+                        </div>
+                      </>
+                    )}
 
                     <div>
                       <Label htmlFor="notes">Notas Adicionales</Label>
@@ -232,7 +402,11 @@ const Checkout = () => {
                         id="notes"
                         value={customerInfo.notes}
                         onChange={(e) => handleInputChange('notes', e.target.value)}
-                        placeholder="Instrucciones especiales para la entrega..."
+                        placeholder={
+                          orderType === 'delivery' 
+                            ? "Instrucciones especiales para la entrega..."
+                            : "Comentarios sobre tu pedido..."
+                        }
                         rows={3}
                       />
                     </div>

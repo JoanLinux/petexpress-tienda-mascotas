@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { CheckCircle, Package, Phone, Mail } from 'lucide-react';
+import { CheckCircle, Package, Phone, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -27,7 +27,7 @@ const OrderSuccess = () => {
                 <div className="flex items-center justify-center space-x-2 text-primary">
                   <Package className="h-5 w-5" />
                   <span className="font-medium">
-                    Número de pedido: #PET-{Date.now().toString().slice(-6)}
+                    Número de pedido: #CB-{Date.now().toString().slice(-6)}
                   </span>
                 </div>
                 
@@ -40,10 +40,22 @@ const OrderSuccess = () => {
                     ¿Qué sigue?
                   </h3>
                   <div className="space-y-2 text-sm text-muted-foreground">
-                    <p>• Procesaremos tu pedido en las próximas 24 horas</p>
-                    <p>• Te contactaremos para coordinar la entrega</p>
-                    <p>• Recibirás tu pedido en 2-5 días hábiles</p>
+                    <p>• Procesaremos tu pedido inmediatamente</p>
+                    <p>• Te contactaremos para confirmar los detalles</p>
+                    <p>• Si es delivery, podrás seguir tu pedido en tiempo real</p>
+                    <p>• El tiempo de entrega es de 30-45 minutos</p>
                   </div>
+                </div>
+
+                <div className="bg-primary/10 rounded-lg p-4 mt-4">
+                  <div className="flex items-center justify-center space-x-2 text-primary mb-2">
+                    <MapPin className="h-5 w-5" />
+                    <span className="font-medium">Seguimiento en Tiempo Real</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground text-center">
+                    Si tu pedido es para delivery, recibirás un enlace por WhatsApp para seguir 
+                    la ubicación de tu repartidor en tiempo real, igual que en Uber.
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -55,7 +67,7 @@ const OrderSuccess = () => {
                 <Phone className="h-8 w-8 text-primary mx-auto mb-2" />
                 <h3 className="font-semibold mb-1">Llámanos</h3>
                 <p className="text-sm text-muted-foreground">
-                  +57 300 123 4567
+                  +52 55 1234 5678
                 </p>
               </CardContent>
             </Card>
@@ -65,7 +77,7 @@ const OrderSuccess = () => {
                 <Mail className="h-8 w-8 text-primary mx-auto mb-2" />
                 <h3 className="font-semibold mb-1">Escríbenos</h3>
                 <p className="text-sm text-muted-foreground">
-                  soporte@petstore.com
+                  pedidos@casabeatricita.com
                 </p>
               </CardContent>
             </Card>
@@ -80,7 +92,7 @@ const OrderSuccess = () => {
             
             <p className="text-sm text-muted-foreground">
               ¿Tienes alguna pregunta sobre tu pedido?{' '}
-              <a href="mailto:soporte@petstore.com" className="text-primary hover:underline">
+              <a href="mailto:pedidos@casabeatricita.com" className="text-primary hover:underline">
                 Contáctanos
               </a>
             </p>

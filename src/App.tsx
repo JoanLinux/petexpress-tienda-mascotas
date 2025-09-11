@@ -18,7 +18,9 @@ import AdminProducts from "./pages/admin/Products";
 import AdminCategories from "./pages/admin/Categories";
 import AdminPromotions from "./pages/admin/Promotions";
 import AdminOrders from "./pages/admin/Orders";
+import AdminDeliveryDashboard from "./pages/admin/DeliveryDashboard";
 import SearchResults from "./pages/SearchResults";
+import OrderTracking from "./pages/OrderTracking";
 import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
@@ -65,6 +67,12 @@ const App = () => (
                   <AdminOrders />
                 </ProtectedRoute>
               } />
+              <Route path="/admin/delivery" element={
+                <ProtectedRoute>
+                  <AdminDeliveryDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/order-tracking" element={<OrderTracking />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

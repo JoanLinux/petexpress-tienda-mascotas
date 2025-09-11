@@ -41,6 +41,69 @@ export type Database = {
         }
         Relationships: []
       }
+      delivery_tracking: {
+        Row: {
+          created_at: string
+          current_latitude: number | null
+          current_longitude: number | null
+          customer_latitude: number | null
+          customer_longitude: number | null
+          delivery_person_id: string | null
+          delivery_person_name: string | null
+          delivery_person_phone: string | null
+          estimated_arrival_time: string | null
+          id: string
+          order_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_latitude?: number | null
+          current_longitude?: number | null
+          customer_latitude?: number | null
+          customer_longitude?: number | null
+          delivery_person_id?: string | null
+          delivery_person_name?: string | null
+          delivery_person_phone?: string | null
+          estimated_arrival_time?: string | null
+          id?: string
+          order_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_latitude?: number | null
+          current_longitude?: number | null
+          customer_latitude?: number | null
+          customer_longitude?: number | null
+          delivery_person_id?: string | null
+          delivery_person_name?: string | null
+          delivery_person_phone?: string | null
+          estimated_arrival_time?: string | null
+          id?: string
+          order_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_tracking_delivery_person_id_fkey"
+            columns: ["delivery_person_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "delivery_tracking_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string
