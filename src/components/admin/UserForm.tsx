@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { UserWithDetails } from '@/hooks/useUsers';
 import { User, Shield, Truck, Users } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface UserFormProps {
   user?: UserWithDetails | null;
@@ -24,6 +25,7 @@ const roleConfig = {
 };
 
 export const UserForm = ({ user, onSubmit, onCancel, isLoading }: UserFormProps) => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -55,13 +57,42 @@ export const UserForm = ({ user, onSubmit, onCancel, isLoading }: UserFormProps)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!user && !formData.password) {
-      alert('La contraseña es requerida para nuevos usuarios');
+    // Validate required fields
+    if (!formData.email?.trim()) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "El email es requerido.",
+      });
       return;
     }
-
+    
+    if (!formData.full_name?.trim()) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "El nombre es requerido.",
+      });
+      return;
+    }
+    
+    // Validate required fields for new users
+    if (!user && !formData.password) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "La contraseña es requerida para nuevos usuarios.",
+      });
+      return;
+    }
+    
+    // Validate at least one role is selected
     if (formData.roles.length === 0) {
-      alert('Debe seleccionar al menos un rol');
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Debe seleccionar al menos un rol para el usuario.",
+      });
       return;
     }
 

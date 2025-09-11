@@ -92,7 +92,14 @@ export const useUsers = () => {
         body: userData
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Edge function error:', error);
+        // Handle specific error cases
+        if (error.message?.includes('email_exists') || error.message?.includes('already been registered')) {
+          throw new Error(`El email ${userData.email} ya está registrado en el sistema.`);
+        }
+        throw error;
+      }
 
       toast({
         title: "Usuario creado",
@@ -103,10 +110,22 @@ export const useUsers = () => {
       return data;
     } catch (error: any) {
       console.error('Error creating user:', error);
+      
+      let errorMessage = "No se pudo crear el usuario.";
+      
+      // Handle different types of errors
+      if (error.message?.includes('email_exists') || error.message?.includes('already been registered')) {
+        errorMessage = `El email ${userData.email} ya está registrado en el sistema.`;
+      } else if (error.message?.includes('Edge Function returned a non-2xx status code')) {
+        errorMessage = "Error del servidor. Verifique que el email no esté duplicado.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error.message || "No se pudo crear el usuario.",
+        title: "Error al crear usuario",
+        description: errorMessage,
       });
       throw error;
     }
