@@ -465,6 +465,21 @@ export type Database = {
         Args: { new_role: string; target_user_id: string }
         Returns: undefined
       }
+      create_stripe_order: {
+        Args: {
+          p_customer_email: string
+          p_customer_name: string
+          p_customer_phone: string
+          p_delivery_address: string
+          p_items: Json
+          p_notes: string
+          p_order_type: string
+          p_stripe_session_id: string
+          p_total_amount: number
+          p_user_id: string
+        }
+        Returns: string
+      }
       create_user_with_roles: {
         Args: {
           user_address?: string
