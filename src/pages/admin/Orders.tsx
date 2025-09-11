@@ -49,7 +49,7 @@ const statusLabels = {
   cancelled: 'Cancelado'
 };
 
-const Orders = () => {
+export const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
