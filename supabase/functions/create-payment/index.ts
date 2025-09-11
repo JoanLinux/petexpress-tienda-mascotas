@@ -25,11 +25,11 @@ serve(async (req) => {
     // Create line items for Stripe
     const lineItems = items.map((item: any) => ({
       price_data: {
-        currency: "cop", // Colombian Peso
+        currency: "mxn", // Mexican Peso
         product_data: {
           name: item.name,
         },
-        unit_amount: Math.round(item.price), // Already in pesos
+        unit_amount: Math.round(item.price * 100), // Convert to centavos
       },
       quantity: item.quantity,
     }));
@@ -50,7 +50,7 @@ serve(async (req) => {
         customer_notes: customer.notes || "",
       },
       shipping_address_collection: {
-        allowed_countries: ["CO"], // Colombia
+        allowed_countries: ["MX"], // México
       },
     });
 
