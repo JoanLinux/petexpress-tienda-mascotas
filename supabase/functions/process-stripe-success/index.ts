@@ -88,7 +88,9 @@ serve(async (req) => {
       .from('delivery_tracking')
       .insert({
         order_id: orderId,
-        status: 'assigned'
+        status: 'assigned',
+        customer_latitude: null, // Por ahora null, se puede agregar later
+        customer_longitude: null // Por ahora null, se puede agregar later
       });
 
     if (trackingError) {

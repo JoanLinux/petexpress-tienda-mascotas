@@ -173,7 +173,10 @@ const Checkout = () => {
             status: 'assigned'
           });
 
-        if (trackingError) console.error('Error creating delivery tracking:', trackingError);
+        if (trackingError) {
+          console.error('Error creating delivery tracking:', trackingError);
+          // Don't throw error, just log it - we still want to show success
+        }
       }
       
       toast({
