@@ -395,6 +395,7 @@ export type Database = {
           address: string | null
           city: string | null
           created_at: string
+          email: string | null
           full_name: string | null
           id: string
           is_active: boolean
@@ -407,6 +408,7 @@ export type Database = {
           address?: string | null
           city?: string | null
           created_at?: string
+          email?: string | null
           full_name?: string | null
           id?: string
           is_active?: boolean
@@ -419,6 +421,7 @@ export type Database = {
           address?: string | null
           city?: string | null
           created_at?: string
+          email?: string | null
           full_name?: string | null
           id?: string
           is_active?: boolean
@@ -478,6 +481,10 @@ export type Database = {
       get_current_user_roles: {
         Args: Record<PropertyKey, never>
         Returns: Database["public"]["Enums"]["app_role"][]
+      }
+      get_user_email: {
+        Args: { user_uuid: string }
+        Returns: string
       }
       has_role: {
         Args: {

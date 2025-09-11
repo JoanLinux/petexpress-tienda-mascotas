@@ -107,6 +107,7 @@ serve(async (req) => {
       .insert({
         user_id: newUser.user.id,
         full_name,
+        email: email, // Guardar el email real
         phone: phone || null,
         address: address || null,
         city: city || null,

@@ -54,10 +54,10 @@ export const useUsers = () => {
 
       if (rolesError) throw rolesError;
 
-      // Combinar datos (simular join con auth.users)
+      // Combinar datos usando el email real almacenado en user_profiles
       const usersData: UserWithDetails[] = profiles?.map(profile => ({
         id: profile.user_id,
-        email: `usuario-${profile.user_id.slice(0, 8)}@ejemplo.com`, // Placeholder - en producción se obtendría de auth.users
+        email: profile.email || 'email-no-disponible@ejemplo.com', // Usar email real del perfil
         created_at: profile.created_at,
         profile,
         roles: roles?.filter(role => role.user_id === profile.user_id) || []
