@@ -44,6 +44,13 @@ const OrderSuccess = () => {
           title: "¡Pedido confirmado!",
           description: "Tu pago se procesó correctamente y tu pedido ha sido confirmado.",
         });
+        
+        // Redirigir a order-tracking después de un pago de Stripe exitoso
+        if (data.orderId) {
+          setTimeout(() => {
+            window.location.href = `/order-tracking?order=${data.orderId}`;
+          }, 2000); // Esperar 2 segundos para mostrar la confirmación
+        }
       }
     } catch (error) {
       console.error('Error processing order:', error);
@@ -118,16 +125,18 @@ const OrderSuccess = () => {
                     </div>
                   </div>
 
-                  <div className="bg-primary/10 rounded-lg p-4 mt-4">
-                    <div className="flex items-center justify-center space-x-2 text-primary mb-2">
-                      <MapPin className="h-5 w-5" />
-                      <span className="font-medium">Seguimiento en Tiempo Real</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground text-center">
-                      Si tu pedido es para delivery, recibirás un enlace por WhatsApp para seguir 
-                      la ubicación de tu repartidor en tiempo real, igual que en Uber.
-                    </p>
-                  </div>
+                   <div className="bg-primary/10 rounded-lg p-4 mt-4">
+                     <div className="flex items-center justify-center space-x-2 text-primary mb-2">
+                       <MapPin className="h-5 w-5" />
+                       <span className="font-medium">Seguimiento en Tiempo Real</span>
+                     </div>
+                     <p className="text-sm text-muted-foreground text-center">
+                       {sessionId ? 
+                         "Tu pedido será redirigido automáticamente al seguimiento en tiempo real en unos segundos." :
+                         "Si tu pedido es para delivery, recibirás un enlace por WhatsApp para seguir la ubicación de tu repartidor en tiempo real, igual que en Uber."
+                       }
+                     </p>
+                   </div>
                 </div>
               )}
             </CardContent>

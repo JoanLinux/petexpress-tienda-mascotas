@@ -84,6 +84,7 @@ serve(async (req) => {
     }
 
     // Create delivery tracking for delivery orders
+    console.log('Creating delivery tracking for order:', orderId);
     const { error: trackingError } = await supabase
       .from('delivery_tracking')
       .insert({
@@ -95,6 +96,9 @@ serve(async (req) => {
 
     if (trackingError) {
       console.error('Error creating delivery tracking:', trackingError);
+      // No lanzar error aquí para que el pedido se complete aunque falle el tracking
+    } else {
+      console.log('Delivery tracking created successfully for order:', orderId);
     }
 
     return new Response(
