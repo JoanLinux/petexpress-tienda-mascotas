@@ -28,7 +28,8 @@ import {
   Shield,
   Truck,
   Users as UsersIcon,
-  Loader2
+  Loader2,
+  ChefHat
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
@@ -36,7 +37,8 @@ const roleConfig = {
   admin: { label: 'Admin', icon: Shield, color: 'bg-red-100 text-red-800' },
   user: { label: 'Usuario', icon: User, color: 'bg-blue-100 text-blue-800' },
   delivery_person: { label: 'Repartidor', icon: Truck, color: 'bg-green-100 text-green-800' },
-  customer: { label: 'Cliente', icon: UsersIcon, color: 'bg-purple-100 text-purple-800' }
+  customer: { label: 'Cliente', icon: UsersIcon, color: 'bg-purple-100 text-purple-800' },
+  cook: { label: 'Cocinero', icon: ChefHat, color: 'bg-orange-100 text-orange-800' }
 };
 
 const Users = () => {

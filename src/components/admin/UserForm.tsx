@@ -7,7 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { UserWithDetails } from '@/hooks/useUsers';
-import { User, Shield, Truck, Users } from 'lucide-react';
+import { User, Shield, Truck, Users, ChefHat } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface UserFormProps {
@@ -21,7 +21,8 @@ const roleConfig = {
   admin: { label: 'Administrador', icon: Shield, color: 'bg-red-100 text-red-800' },
   user: { label: 'Usuario', icon: User, color: 'bg-blue-100 text-blue-800' },
   delivery_person: { label: 'Repartidor', icon: Truck, color: 'bg-green-100 text-green-800' },
-  customer: { label: 'Cliente', icon: Users, color: 'bg-purple-100 text-purple-800' }
+  customer: { label: 'Cliente', icon: Users, color: 'bg-purple-100 text-purple-800' },
+  cook: { label: 'Cocinero', icon: ChefHat, color: 'bg-orange-100 text-orange-800' }
 };
 
 export const UserForm = ({ user, onSubmit, onCancel, isLoading }: UserFormProps) => {

@@ -5,7 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 export interface UserRole {
   id: string;
   user_id: string;
-  role: 'admin' | 'user' | 'delivery_person' | 'customer';
+  role: 'admin' | 'user' | 'delivery_person' | 'customer' | 'cook';
   created_at: string;
 }
 
