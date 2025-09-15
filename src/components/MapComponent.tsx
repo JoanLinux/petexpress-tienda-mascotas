@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Fix default markers in Leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 interface MapComponentProps {
   customerLocation?: { lat: number; lng: number };
@@ -19,103 +24,113 @@ const MapComponent = ({
   deliveryLocation, 
   onLocationUpdate, 
   height = '400px',
-  showLocationInput = false,
-  mapboxToken 
 }: MapComponentProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-  const [token, setToken] = useState(mapboxToken || '');
-  const [error, setError] = useState('');
-  const customerMarker = useRef<mapboxgl.Marker | null>(null);
-  const deliveryMarker = useRef<mapboxgl.Marker | null>(null);
+  const map = useRef<L.Map | null>(null);
+  const customerMarker = useRef<L.Marker | null>(null);
+  const deliveryMarker = useRef<L.Marker | null>(null);
 
   const initializeMap = () => {
-    if (!mapContainer.current || !token) return;
+    if (!mapContainer.current || map.current) return;
 
-    try {
-      mapboxgl.accessToken = token;
-      
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: [-99.1332, 19.4326], // Mexico City default
-        zoom: 12,
-        pitch: 0,
-      });
+    // Create map centered on Mexico City
+    map.current = L.map(mapContainer.current).setView([19.4326, -99.1332], 12);
 
-      // Add navigation controls
-      map.current.addControl(
-        new mapboxgl.NavigationControl({
-          visualizePitch: true,
-        }),
-        'top-right'
-      );
+    // Add OpenStreetMap tiles (completely free)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map.current);
 
-      // Add geolocate control
-      const geolocate = new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      });
-
-      map.current.addControl(geolocate, 'top-right');
-
-      // Listen for location updates
-      if (onLocationUpdate) {
-        geolocate.on('geolocate', (e: any) => {
-          onLocationUpdate({
-            lat: e.coords.latitude,
-            lng: e.coords.longitude
-          });
-        });
-
-        // Allow clicking to set location
-        map.current.on('click', (e) => {
-          onLocationUpdate({
-            lat: e.lngLat.lat,
-            lng: e.lngLat.lng
-          });
-        });
+    // Add custom geolocation button
+    const GeolocationControl = L.Control.extend({
+      onAdd: function(map: L.Map) {
+        const button = L.DomUtil.create('button', 'leaflet-control-locate');
+        button.innerHTML = '📍';
+        button.style.backgroundColor = 'white';
+        button.style.border = '2px solid rgba(0,0,0,0.2)';
+        button.style.borderRadius = '4px';
+        button.style.width = '30px';
+        button.style.height = '30px';
+        button.style.cursor = 'pointer';
+        button.title = 'Mostrar mi ubicación';
+        
+        button.onclick = function() {
+          map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
+        };
+        
+        return button;
       }
+    });
 
-      setError('');
-    } catch (err) {
-      setError('Error al inicializar el mapa. Verifica tu token de Mapbox.');
-      console.error('Mapbox error:', err);
+    map.current.addControl(new GeolocationControl({ position: 'topright' }));
+
+    // Listen for location updates when clicking on map
+    if (onLocationUpdate) {
+      map.current.on('click', (e: L.LeafletMouseEvent) => {
+        onLocationUpdate({
+          lat: e.latlng.lat,
+          lng: e.latlng.lng
+        });
+      });
+
+      // Listen for geolocation
+      map.current.on('locationfound', (e: L.LocationEvent) => {
+        onLocationUpdate({
+          lat: e.latlng.lat,
+          lng: e.latlng.lng
+        });
+      });
     }
   };
 
   useEffect(() => {
-    if (token) {
-      initializeMap();
-    }
+    initializeMap();
 
     return () => {
-      map.current?.remove();
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
     };
-  }, [token]);
+  }, []);
 
   // Update customer marker
   useEffect(() => {
     if (map.current && customerLocation) {
       // Remove existing marker
       if (customerMarker.current) {
-        customerMarker.current.remove();
+        map.current.removeLayer(customerMarker.current);
       }
 
+      // Create custom red icon for customer
+      const customerIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="
+          background-color: #ef4444;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          border: 3px solid white;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+        ">📍</div>`,
+        iconSize: [25, 25],
+        iconAnchor: [12, 12]
+      });
+
       // Add new marker
-      customerMarker.current = new mapboxgl.Marker({ color: '#ef4444' })
-        .setLngLat([customerLocation.lng, customerLocation.lat])
-        .setPopup(new mapboxgl.Popup().setHTML('<div>📍 Cliente</div>'))
+      customerMarker.current = L.marker([customerLocation.lat, customerLocation.lng], { 
+        icon: customerIcon 
+      })
+        .bindPopup('📍 Cliente')
         .addTo(map.current);
 
       // Center map on customer location
-      map.current.flyTo({
-        center: [customerLocation.lng, customerLocation.lat],
-        zoom: 14
-      });
+      map.current.setView([customerLocation.lat, customerLocation.lng], 14);
     }
   }, [customerLocation]);
 
@@ -124,77 +139,49 @@ const MapComponent = ({
     if (map.current && deliveryLocation) {
       // Remove existing marker
       if (deliveryMarker.current) {
-        deliveryMarker.current.remove();
+        map.current.removeLayer(deliveryMarker.current);
       }
 
+      // Create custom green icon for delivery person
+      const deliveryIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="
+          background-color: #22c55e;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          border: 3px solid white;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+        ">🛵</div>`,
+        iconSize: [25, 25],
+        iconAnchor: [12, 12]
+      });
+
       // Add new marker
-      deliveryMarker.current = new mapboxgl.Marker({ color: '#22c55e' })
-        .setLngLat([deliveryLocation.lng, deliveryLocation.lat])
-        .setPopup(new mapboxgl.Popup().setHTML('<div>🛵 Repartidor</div>'))
+      deliveryMarker.current = L.marker([deliveryLocation.lat, deliveryLocation.lng], { 
+        icon: deliveryIcon 
+      })
+        .bindPopup('🛵 Repartidor')
         .addTo(map.current);
 
       // If we have both locations, fit bounds to show both
-      if (customerLocation) {
-        const bounds = new mapboxgl.LngLatBounds()
-          .extend([customerLocation.lng, customerLocation.lat])
-          .extend([deliveryLocation.lng, deliveryLocation.lat]);
-
-        map.current.fitBounds(bounds, { padding: 50 });
+      if (customerLocation && map.current) {
+        const group = L.featureGroup([
+          L.marker([customerLocation.lat, customerLocation.lng]),
+          L.marker([deliveryLocation.lat, deliveryLocation.lng])
+        ]);
+        map.current.fitBounds(group.getBounds().pad(0.1));
       }
     }
   }, [deliveryLocation, customerLocation]);
 
-  if (showLocationInput && !token) {
-    return (
-      <div className="space-y-4">
-        <Alert>
-          <AlertDescription>
-            Para usar el mapa, necesitas un token de Mapbox. Puedes obtenerlo gratis en{' '}
-            <a 
-              href="https://mapbox.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-primary underline"
-            >
-              mapbox.com
-            </a>
-          </AlertDescription>
-        </Alert>
-        <div>
-          <Label htmlFor="mapbox-token">Token de Mapbox</Label>
-          <Input
-            id="mapbox-token"
-            type="text"
-            placeholder="pk.eyJ1IjoieW91ci11c2VybmFtZSIsImEiOiJjbG..."
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-4">
-      {showLocationInput && (
-        <div>
-          <Label htmlFor="mapbox-token">Token de Mapbox</Label>
-          <Input
-            id="mapbox-token"
-            type="text"
-            placeholder="pk.eyJ1IjoieW91ci11c2VybmFtZSIsImEiOiJjbG..."
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-          />
-        </div>
-      )}
-      
-      {error && (
-        <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-      
+    <div className="space-y-4">      
       <div 
         ref={mapContainer} 
         style={{ height }} 
