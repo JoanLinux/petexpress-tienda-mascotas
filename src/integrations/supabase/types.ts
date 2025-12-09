@@ -494,13 +494,10 @@ export type Database = {
         Returns: string
       }
       get_current_user_roles: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: Database["public"]["Enums"]["app_role"][]
       }
-      get_user_email: {
-        Args: { user_uuid: string }
-        Returns: string
-      }
+      get_user_email: { Args: { user_uuid: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -508,22 +505,10 @@ export type Database = {
         }
         Returns: boolean
       }
-      initialize_admin_user: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_current_user_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_current_user_admin_new: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      initialize_admin_user: { Args: never; Returns: undefined }
+      is_admin: { Args: never; Returns: boolean }
+      is_current_user_admin: { Args: never; Returns: boolean }
+      is_current_user_admin_new: { Args: never; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "user" | "delivery_person" | "customer" | "cook"
