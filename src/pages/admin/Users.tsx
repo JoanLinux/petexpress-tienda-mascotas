@@ -125,15 +125,15 @@ const Users = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Gestión de Usuarios</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground">Gestión de Usuarios</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Administra clientes, usuarios, repartidores y administradores
             </p>
           </div>
-          <Button onClick={handleCreateUser}>
+          <Button onClick={handleCreateUser} className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Crear Usuario
           </Button>
@@ -141,9 +141,9 @@ const Users = () => {
 
         {/* Filtros */}
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
+          <CardContent className="pt-4 sm:pt-6 p-3 sm:p-6">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <div className="w-full">
                 <div className="relative">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -155,11 +155,12 @@ const Users = () => {
                 </div>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button
                   variant={roleFilter === 'all' ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setRoleFilter('all')}
+                  className="text-xs sm:text-sm"
                 >
                   Todos ({users.length})
                 </Button>
@@ -171,6 +172,7 @@ const Users = () => {
                       variant={roleFilter === role ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setRoleFilter(role)}
+                      className="text-xs sm:text-sm"
                     >
                       {config.label} ({count})
                     </Button>
@@ -182,11 +184,11 @@ const Users = () => {
         </Card>
 
         {/* Lista de usuarios */}
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {filteredUsers.length === 0 ? (
             <Card>
-              <CardContent className="pt-6">
-                <div className="text-center py-8 text-muted-foreground">
+              <CardContent className="pt-6 p-3 sm:p-6">
+                <div className="text-center py-6 sm:py-8 text-sm sm:text-base text-muted-foreground">
                   {searchTerm || roleFilter !== 'all' 
                     ? 'No se encontraron usuarios con los filtros aplicados'
                     : 'No hay usuarios registrados'
@@ -197,33 +199,33 @@ const Users = () => {
           ) : (
             filteredUsers.map((user) => (
               <Card key={user.id} className={`${!user.profile?.is_active ? 'opacity-60' : ''}`}>
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold">
+                <CardContent className="pt-4 sm:pt-6 p-3 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <h3 className="text-base sm:text-lg font-semibold truncate">
                           {user.profile?.full_name || 'Sin nombre'}
                         </h3>
                         {!user.profile?.is_active && (
-                          <Badge variant="secondary">Inactivo</Badge>
+                          <Badge variant="secondary" className="text-xs">Inactivo</Badge>
                         )}
                       </div>
                       
-                      <div className="space-y-1 text-sm text-muted-foreground">
-                        <p>📧 {user.email}</p>
+                      <div className="space-y-1 text-xs sm:text-sm text-muted-foreground">
+                        <p className="truncate">📧 {user.email}</p>
                         {user.profile?.phone && <p>📱 {user.profile.phone}</p>}
                         {user.profile?.address && (
-                          <p>📍 {user.profile.address}{user.profile.city && `, ${user.profile.city}`}</p>
+                          <p className="break-words">📍 {user.profile.address}{user.profile.city && `, ${user.profile.city}`}</p>
                         )}
                         <p>📅 Creado: {formatDate(user.created_at)}</p>
                       </div>
 
-                      <div className="flex gap-2 mt-3">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 sm:mt-3">
                         {user.roles.map((role) => {
                           const config = roleConfig[role.role as keyof typeof roleConfig];
                           const Icon = config.icon;
                           return (
-                            <Badge key={role.id} className={config.color}>
+                            <Badge key={role.id} className={`${config.color} text-xs`}>
                               <Icon className="h-3 w-3 mr-1" />
                               {config.label}
                             </Badge>
@@ -232,17 +234,18 @@ const Users = () => {
                       </div>
 
                       {user.profile?.notes && (
-                        <div className="mt-2 p-2 bg-muted rounded text-sm">
+                        <div className="mt-2 p-2 bg-muted rounded text-xs sm:text-sm break-words">
                           <strong>Notas:</strong> {user.profile.notes}
                         </div>
                       )}
                     </div>
 
-                    <div className="flex gap-2 ml-4">
+                    <div className="flex gap-2 self-start">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => handleEditUser(user)}
+                        className="h-8 w-8 sm:h-9 sm:w-9 p-0"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -251,6 +254,7 @@ const Users = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => handleToggleStatus(user)}
+                        className="h-8 w-8 sm:h-9 sm:w-9 p-0"
                       >
                         {user.profile?.is_active ? (
                           <UserX className="h-4 w-4" />
@@ -261,23 +265,23 @@ const Users = () => {
 
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-9 p-0">
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </AlertDialogTrigger>
-                        <AlertDialogContent>
+                        <AlertDialogContent className="max-w-[90vw] sm:max-w-lg">
                           <AlertDialogHeader>
                             <AlertDialogTitle>¿Eliminar usuario?</AlertDialogTitle>
-                            <AlertDialogDescription>
+                            <AlertDialogDescription className="text-sm">
                               Esta acción no se puede deshacer. Se eliminará permanentemente la cuenta de 
                               {user.profile?.full_name || user.email} y todos sus datos.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+                            <AlertDialogCancel className="w-full sm:w-auto">Cancelar</AlertDialogCancel>
                             <AlertDialogAction 
                               onClick={() => handleDeleteUser(user.id)}
-                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              className="w-full sm:w-auto bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             >
                               Eliminar
                             </AlertDialogAction>
@@ -294,9 +298,9 @@ const Users = () => {
 
         {/* Formulario de usuario */}
         <Dialog open={showUserForm} onOpenChange={setShowUserForm}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
+              <DialogTitle className="text-base sm:text-lg">
                 {selectedUser ? 'Editar Usuario' : 'Crear Nuevo Usuario'}
               </DialogTitle>
             </DialogHeader>

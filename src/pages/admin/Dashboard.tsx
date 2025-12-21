@@ -35,24 +35,24 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Dashboard</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Resumen general del restaurante Casa Beatricita
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-3 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Total Productos
               </CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalProducts}</div>
+            <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+              <div className="text-xl sm:text-2xl font-bold">{stats.totalProducts}</div>
               <p className="text-xs text-muted-foreground">
                 productos registrados
               </p>
@@ -60,14 +60,14 @@ const AdminDashboard = () => {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Productos Activos
               </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.activeProducts}</div>
+            <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+              <div className="text-xl sm:text-2xl font-bold">{stats.activeProducts}</div>
               <p className="text-xs text-muted-foreground">
                 disponibles para venta
               </p>
@@ -75,14 +75,14 @@ const AdminDashboard = () => {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Categorías
               </CardTitle>
               <Tags className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalCategories}</div>
+            <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+              <div className="text-xl sm:text-2xl font-bold">{stats.totalCategories}</div>
               <p className="text-xs text-muted-foreground">
                 categorías disponibles
               </p>
@@ -90,40 +90,40 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-3 sm:gap-6 grid-cols-1 md:grid-cols-2">
           <Card>
-            <CardHeader>
-              <CardTitle>Acciones Rápidas</CardTitle>
+            <CardHeader className="p-3 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Acciones Rápidas</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-muted-foreground">
+            <CardContent className="space-y-2 p-3 sm:p-6 pt-0 sm:pt-0">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 • Gestionar productos desde la sección Productos
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 • Crear y editar categorías
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 • Los cambios se reflejan en tiempo real en la tienda
               </p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Estado del Sistema</CardTitle>
+            <CardHeader className="p-3 sm:p-6">
+              <CardTitle className="text-base sm:text-lg">Estado del Sistema</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2 p-3 sm:p-6 pt-0 sm:pt-0">
               <div className="flex items-center justify-between">
-                <span className="text-sm">Base de datos</span>
-                <span className="text-sm text-green-600">✓ Conectada</span>
+                <span className="text-xs sm:text-sm">Base de datos</span>
+                <span className="text-xs sm:text-sm text-green-600">✓ Conectada</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm">Autenticación</span>
-                <span className="text-sm text-green-600">✓ Activa</span>
+                <span className="text-xs sm:text-sm">Autenticación</span>
+                <span className="text-xs sm:text-sm text-green-600">✓ Activa</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm">Almacenamiento</span>
-                <span className="text-sm text-green-600">✓ Disponible</span>
+                <span className="text-xs sm:text-sm">Almacenamiento</span>
+                <span className="text-xs sm:text-sm text-green-600">✓ Disponible</span>
               </div>
             </CardContent>
           </Card>

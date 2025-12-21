@@ -205,10 +205,10 @@ const DeliveryDashboard = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Panel de Entregas</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Panel de Entregas</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Gestiona tus entregas y actualiza tu ubicación en tiempo real
           </p>
         </div>
@@ -222,10 +222,10 @@ const DeliveryDashboard = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Lista de entregas */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Entregas Activas</h3>
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg font-semibold">Entregas Activas</h3>
               {deliveries.map((delivery) => (
                 <Card 
                   key={delivery.id} 
@@ -234,34 +234,34 @@ const DeliveryDashboard = () => {
                   }`}
                   onClick={() => setSelectedDelivery(delivery)}
                 >
-                  <CardHeader className="pb-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-lg">
+                  <CardHeader className="pb-2 sm:pb-3 p-3 sm:p-6">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                      <div className="min-w-0">
+                        <CardTitle className="text-base sm:text-lg truncate">
                           Pedido #{delivery.order.id.slice(0, 8)}
                         </CardTitle>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground truncate">
                           {delivery.order.customer_name}
                         </p>
                       </div>
-                      <Badge className={statusColors[delivery.status as keyof typeof statusColors]}>
+                      <Badge className={`${statusColors[delivery.status as keyof typeof statusColors]} self-start flex-shrink-0`}>
                         {statusLabels[delivery.status as keyof typeof statusLabels]}
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm">
-                      <MapPin className="h-4 w-4" />
-                      <span>{delivery.order.delivery_address}</span>
+                  <CardContent className="space-y-2 sm:space-y-3 p-3 sm:p-6 pt-0 sm:pt-0">
+                    <div className="flex items-start gap-2 text-sm">
+                      <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <span className="break-words">{delivery.order.delivery_address}</span>
                     </div>
                     
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4" />
+                      <Phone className="h-4 w-4 flex-shrink-0" />
                       <span>{delivery.order.customer_phone}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-sm">
-                      <Clock className="h-4 w-4" />
+                      <Clock className="h-4 w-4 flex-shrink-0" />
                       <span>{formatCurrency(delivery.order.total_amount)}</span>
                     </div>
 
@@ -274,10 +274,11 @@ const DeliveryDashboard = () => {
                       ))}
                     </div>
 
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex flex-wrap gap-2 pt-2">
                       {delivery.status === 'assigned' && (
                         <Button
                           size="sm"
+                          className="flex-1 sm:flex-none"
                           onClick={(e) => {
                             e.stopPropagation();
                             updateDeliveryStatus(delivery.id, 'picked_up');
@@ -290,6 +291,7 @@ const DeliveryDashboard = () => {
                       {delivery.status === 'picked_up' && (
                         <Button
                           size="sm"
+                          className="flex-1 sm:flex-none"
                           onClick={(e) => {
                             e.stopPropagation();
                             updateDeliveryStatus(delivery.id, 'on_route');
@@ -303,6 +305,7 @@ const DeliveryDashboard = () => {
                         <Button
                           size="sm"
                           variant="default"
+                          className="flex-1 sm:flex-none"
                           onClick={(e) => {
                             e.stopPropagation();
                             updateDeliveryStatus(delivery.id, 'delivered');
@@ -318,17 +321,17 @@ const DeliveryDashboard = () => {
             </div>
 
             {/* Mapa */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Ubicación y Mapa</h3>
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg font-semibold">Ubicación y Mapa</h3>
               {selectedDelivery ? (
                 <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Navigation className="h-5 w-5" />
+                  <CardHeader className="p-3 sm:p-6">
+                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                      <Navigation className="h-4 w-4 sm:h-5 sm:w-5" />
                       Entrega Seleccionada
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
                     <MapComponent
                       customerLocation={
                         selectedDelivery.customer_latitude && selectedDelivery.customer_longitude
@@ -347,13 +350,13 @@ const DeliveryDashboard = () => {
                           : undefined
                       }
                       onLocationUpdate={(location) => updateLocation(selectedDelivery.id, location)}
-                      height="500px"
+                      height="300px"
                       showLocationInput={true}
                     />
                     
-                    <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-muted rounded-lg">
                       <p className="text-sm font-medium mb-2">Instrucciones:</p>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <ul className="text-xs sm:text-sm text-muted-foreground space-y-1">
                         <li>• Haz clic en el mapa para actualizar tu ubicación</li>
                         <li>• Usa el botón de GPS para usar tu ubicación actual</li>
                         <li>• El marcador rojo es la ubicación del cliente</li>
@@ -362,7 +365,7 @@ const DeliveryDashboard = () => {
                     </div>
 
                     {updatingLocation && (
-                      <div className="flex items-center gap-2 mt-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2 mt-3 sm:mt-4 text-sm text-muted-foreground">
                         <Loader2 className="h-4 w-4 animate-spin" />
                         Actualizando ubicación...
                       </div>
@@ -371,8 +374,8 @@ const DeliveryDashboard = () => {
                 </Card>
               ) : (
                 <Card>
-                  <CardContent className="pt-6">
-                    <div className="text-center py-8 text-muted-foreground">
+                  <CardContent className="pt-6 p-3 sm:p-6">
+                    <div className="text-center py-6 sm:py-8 text-muted-foreground text-sm">
                       Selecciona una entrega para ver el mapa y actualizar tu ubicación
                     </div>
                   </CardContent>

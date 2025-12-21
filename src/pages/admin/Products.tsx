@@ -3,6 +3,7 @@ import { AdminLayout } from '@/components/admin/AdminLayout';
 import { ProductForm } from '@/components/admin/ProductForm';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -124,17 +125,17 @@ const AdminProducts = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Productos</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground">Productos</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Gestiona el inventario de productos
             </p>
           </div>
           <Button 
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
             Nuevo Producto
@@ -149,7 +150,64 @@ const AdminProducts = () => {
           />
         )}
 
-        <div className="bg-card rounded-lg border">
+        {/* Mobile Card View */}
+        <div className="block sm:hidden space-y-3">
+          {products.map((product) => (
+            <Card key={product.id}>
+              <CardContent className="p-3">
+                <div className="flex gap-3">
+                  {product.image_url ? (
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-16 h-16 object-cover rounded-md flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 bg-muted rounded-md flex items-center justify-center flex-shrink-0">
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-medium text-sm truncate">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {product.categories?.name || 'Sin categoría'}
+                    </p>
+                    <p className="text-sm font-semibold mt-1">{formatPrice(product.price)}</p>
+                    <div className="flex gap-2 mt-1">
+                      <Badge variant={product.stock > 0 ? "default" : "destructive"} className="text-xs">
+                        Stock: {product.stock}
+                      </Badge>
+                      <Badge variant={product.is_active ? "default" : "secondary"} className="text-xs">
+                        {product.is_active ? 'Activo' : 'Inactivo'}
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => startEdit(product)}
+                      className="h-8 w-8 p-0"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(product.id)}
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden sm:block bg-card rounded-lg border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -225,6 +283,19 @@ const AdminProducts = () => {
             </div>
           )}
         </div>
+
+        {/* Mobile Empty State */}
+        {products.length === 0 && (
+          <div className="block sm:hidden">
+            <Card>
+              <CardContent className="py-8 text-center">
+                <p className="text-sm text-muted-foreground">
+                  No hay productos registrados. Crea el primer producto.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </AdminLayout>
   );
