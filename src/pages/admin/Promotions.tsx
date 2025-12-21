@@ -158,15 +158,15 @@ const Promotions = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Promociones</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-xl sm:text-3xl font-bold text-foreground">Promociones</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Gestiona las promociones especiales de tu tienda
             </p>
           </div>
-          <Button onClick={() => setShowForm(true)}>
+          <Button onClick={() => setShowForm(true)} className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Nueva Promoción
           </Button>
@@ -178,11 +178,11 @@ const Promotions = () => {
           </div>
         ) : promotions.length === 0 ? (
           <Card>
-            <CardContent className="flex flex-col items-center justify-center h-64">
-              <h3 className="text-lg font-semibold text-foreground mb-2">
+            <CardContent className="flex flex-col items-center justify-center h-48 sm:h-64 p-4">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
                 No hay promociones
               </h3>
-              <p className="text-muted-foreground text-center mb-4">
+              <p className="text-sm text-muted-foreground text-center mb-4">
                 Crea tu primera promoción especial para atraer más clientes
               </p>
               <Button onClick={() => setShowForm(true)}>
@@ -192,63 +192,66 @@ const Promotions = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-4 sm:gap-6">
             {promotions.map((promotion) => (
               <Card key={promotion.id}>
-                <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
-                  <div className="space-y-1 flex-1">
-                    <div className="flex items-center gap-2">
-                      <CardTitle className="text-xl">{promotion.title}</CardTitle>
-                      <Badge variant={isPromotionActive(promotion) ? "default" : "secondary"}>
-                        {isPromotionActive(promotion) ? "Activa" : "Inactiva"}
-                      </Badge>
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className="space-y-1 flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <CardTitle className="text-base sm:text-xl truncate">{promotion.title}</CardTitle>
+                        <Badge variant={isPromotionActive(promotion) ? "default" : "secondary"} className="text-xs">
+                          {isPromotionActive(promotion) ? "Activa" : "Inactiva"}
+                        </Badge>
+                      </div>
+                      {promotion.description && (
+                        <CardDescription className="text-xs sm:text-sm line-clamp-2">
+                          {promotion.description}
+                        </CardDescription>
+                      )}
                     </div>
-                    {promotion.description && (
-                      <CardDescription className="text-sm">
-                        {promotion.description}
-                      </CardDescription>
-                    )}
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Switch
-                      checked={promotion.is_active}
-                      onCheckedChange={() => toggleActive(promotion.id, promotion.is_active)}
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEdit(promotion)}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Esta acción no se puede deshacer. Se eliminará permanentemente la promoción.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDelete(promotion.id)}>
-                            Eliminar
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <Switch
+                        checked={promotion.is_active}
+                        onCheckedChange={() => toggleActive(promotion.id, promotion.is_active)}
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEdit(promotion)}
+                        className="h-8 w-8 p-0"
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="max-w-[90vw] sm:max-w-lg">
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                            <AlertDialogDescription className="text-sm">
+                              Esta acción no se puede deshacer. Se eliminará permanentemente la promoción.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
+                            <AlertDialogCancel className="w-full sm:w-auto">Cancelar</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(promotion.id)} className="w-full sm:w-auto">
+                              Eliminar
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
                     <div>
-                      <span className="font-medium">Descuento:</span>
-                      <p className="text-muted-foreground">
+                      <span className="font-medium text-xs sm:text-sm">Descuento:</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {promotion.discount_percentage 
                           ? `${promotion.discount_percentage}%` 
                           : `$${promotion.discount_amount}`
@@ -256,30 +259,30 @@ const Promotions = () => {
                       </p>
                     </div>
                     <div>
-                      <span className="font-medium">Fecha de inicio:</span>
-                      <p className="text-muted-foreground">
+                      <span className="font-medium text-xs sm:text-sm">Fecha de inicio:</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {formatDate(promotion.start_date)}
                       </p>
                     </div>
                     <div>
-                      <span className="font-medium">Fecha de fin:</span>
-                      <p className="text-muted-foreground">
+                      <span className="font-medium text-xs sm:text-sm">Fecha de fin:</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {formatDate(promotion.end_date)}
                       </p>
                     </div>
                   </div>
                   
                   {(promotion.product_ids.length > 0 || promotion.category_ids.length > 0) && (
-                    <div className="mt-4 pt-4 border-t">
-                      <span className="font-medium text-sm">Aplicable a:</span>
-                      <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t">
+                      <span className="font-medium text-xs sm:text-sm">Aplicable a:</span>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-1.5 sm:mt-2">
                         {promotion.product_ids.length > 0 && (
-                          <Badge variant="outline">
+                          <Badge variant="outline" className="text-xs">
                             {promotion.product_ids.length} producto(s)
                           </Badge>
                         )}
                         {promotion.category_ids.length > 0 && (
-                          <Badge variant="outline">
+                          <Badge variant="outline" className="text-xs">
                             {promotion.category_ids.length} categoría(s)
                           </Badge>
                         )}

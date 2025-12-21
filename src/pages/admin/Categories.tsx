@@ -104,17 +104,17 @@ const AdminCategories = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Categorías</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground">Categorías</h2>
+            <p className="text-sm sm:text-base text-muted-foreground">
               Gestiona las categorías de productos
             </p>
           </div>
           <Button 
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
             Nueva Categoría
@@ -129,17 +129,18 @@ const AdminCategories = () => {
           />
         )}
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
             <Card key={category.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <CardTitle className="text-lg">{category.name}</CardTitle>
-                  <div className="flex space-x-1">
+              <CardHeader className="p-3 sm:p-6">
+                <div className="flex justify-between items-start gap-2">
+                  <CardTitle className="text-base sm:text-lg truncate">{category.name}</CardTitle>
+                  <div className="flex flex-shrink-0">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => startEdit(category)}
+                      className="h-8 w-8 p-0"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -147,23 +148,23 @@ const AdminCategories = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => handleDelete(category.id)}
-                      className="text-destructive hover:text-destructive"
+                      className="h-8 w-8 p-0 text-destructive hover:text-destructive"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-3 sm:p-6 pt-0 sm:pt-0">
                 {category.image_url && (
                   <img
                     src={category.image_url}
                     alt={category.name}
-                    className="w-full h-32 object-cover rounded-md mb-3"
+                    className="w-full h-24 sm:h-32 object-cover rounded-md mb-2 sm:mb-3"
                   />
                 )}
                 {category.description && (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                     {category.description}
                   </p>
                 )}
@@ -174,8 +175,8 @@ const AdminCategories = () => {
 
         {categories.length === 0 && (
           <Card>
-            <CardContent className="py-8 text-center">
-              <p className="text-muted-foreground">
+            <CardContent className="py-6 sm:py-8 text-center">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 No hay categorías registradas. Crea la primera categoría.
               </p>
             </CardContent>

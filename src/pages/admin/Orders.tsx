@@ -198,10 +198,10 @@ export const Orders = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Gestión de Pedidos</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Gestión de Pedidos</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Administra el flujo de pedidos de la cocina
           </p>
         </div>
@@ -209,13 +209,13 @@ export const Orders = () => {
         {orders.length === 0 ? (
           <Card>
             <CardContent className="pt-6">
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">No hay pedidos en este momento</p>
+              <div className="text-center py-6 sm:py-8">
+                <p className="text-sm sm:text-base text-muted-foreground">No hay pedidos en este momento</p>
               </div>
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-4 sm:gap-6">
             {orders.map((order) => (
               <Card key={order.id} className={`border-l-4 ${
                 order.status === 'pending' ? 'border-l-yellow-500' :
@@ -224,66 +224,66 @@ export const Orders = () => {
                 order.status === 'ready' ? 'border-l-green-500' :
                 order.status === 'delivered' ? 'border-l-gray-500' : 'border-l-red-500'
               }`}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="flex items-center gap-2">
-                        Pedido #{order.id.slice(0, 8)}
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
+                    <div className="min-w-0">
+                      <CardTitle className="flex flex-wrap items-center gap-2 text-base sm:text-lg">
+                        <span className="truncate">Pedido #{order.id.slice(0, 8)}</span>
                         <Badge className={statusColors[order.status as keyof typeof statusColors]}>
                           <div className="flex items-center gap-1">
                             {getStatusIcon(order.status)}
-                            {statusLabels[order.status as keyof typeof statusLabels]}
+                            <span className="text-xs">{statusLabels[order.status as keyof typeof statusLabels]}</span>
                           </div>
                         </Badge>
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {formatTime(order.created_at)}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold">{formatCurrency(order.total_amount)}</p>
-                      <Badge variant="outline">
+                    <div className="flex items-center gap-2 sm:flex-col sm:items-end sm:text-right">
+                      <p className="text-base sm:text-lg font-bold">{formatCurrency(order.total_amount)}</p>
+                      <Badge variant="outline" className="text-xs">
                         {order.order_type === 'delivery' ? 'Delivery' : 'Recoger'}
                       </Badge>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0 sm:pt-0">
                   {/* Customer Info */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <h4 className="font-semibold mb-2">Cliente</h4>
+                      <h4 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Cliente</h4>
                       <p className="text-sm">{order.customer_name}</p>
                       {order.customer_phone && (
-                        <p className="text-sm text-muted-foreground">{order.customer_phone}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">{order.customer_phone}</p>
                       )}
                       {order.customer_email && (
-                        <p className="text-sm text-muted-foreground">{order.customer_email}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground truncate">{order.customer_email}</p>
                       )}
                     </div>
                     {order.delivery_address && (
                       <div>
-                        <h4 className="font-semibold mb-2">Dirección de Entrega</h4>
-                        <p className="text-sm">{order.delivery_address}</p>
+                        <h4 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Dirección de Entrega</h4>
+                        <p className="text-xs sm:text-sm break-words">{order.delivery_address}</p>
                       </div>
                     )}
                   </div>
 
                   {/* Order Items */}
                   <div>
-                    <h4 className="font-semibold mb-2">Productos</h4>
+                    <h4 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Productos</h4>
                     <div className="space-y-2">
                       {order.order_items.map((item) => (
-                        <div key={item.id} className="flex justify-between items-center p-2 bg-muted rounded">
-                          <div>
+                        <div key={item.id} className="flex justify-between items-start gap-2 p-2 bg-muted rounded text-sm">
+                          <div className="min-w-0 flex-1">
                             <span className="font-medium">{item.quantity}x {item.product_name}</span>
                             {item.special_instructions && (
-                              <p className="text-sm text-muted-foreground mt-1">
+                              <p className="text-xs text-muted-foreground mt-1 break-words">
                                 Instrucciones: {item.special_instructions}
                               </p>
                             )}
                           </div>
-                          <span className="font-medium">{formatCurrency(item.subtotal)}</span>
+                          <span className="font-medium flex-shrink-0">{formatCurrency(item.subtotal)}</span>
                         </div>
                       ))}
                     </div>
@@ -291,20 +291,20 @@ export const Orders = () => {
 
                   {order.notes && (
                     <div>
-                      <h4 className="font-semibold mb-2">Notas del Pedido</h4>
-                      <p className="text-sm bg-muted p-2 rounded">{order.notes}</p>
+                      <h4 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Notas del Pedido</h4>
+                      <p className="text-xs sm:text-sm bg-muted p-2 rounded break-words">{order.notes}</p>
                     </div>
                   )}
 
                   {order.estimated_delivery_time && order.status === 'preparing' && (
                     <div>
-                      <h4 className="font-semibold mb-2">Tiempo Estimado</h4>
-                      <p className="text-sm">{formatTime(order.estimated_delivery_time)}</p>
+                      <h4 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Tiempo Estimado</h4>
+                      <p className="text-xs sm:text-sm">{formatTime(order.estimated_delivery_time)}</p>
                     </div>
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 pt-4 border-t">
+                  <div className="flex flex-wrap gap-2 pt-3 sm:pt-4 border-t">
                     {order.status !== 'delivered' && order.status !== 'cancelled' && (
                       <>
                         {getNextStatus(order.status) && (
@@ -312,9 +312,10 @@ export const Orders = () => {
                             onClick={() => updateOrderStatus(order.id, getNextStatus(order.status)!)}
                             disabled={updatingStatus === order.id}
                             size="sm"
+                            className="flex-1 sm:flex-none text-xs sm:text-sm"
                           >
                             {updatingStatus === order.id ? (
-                              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                              <Loader2 className="h-4 w-4 animate-spin mr-1 sm:mr-2" />
                             ) : null}
                             {order.status === 'pending' && 'Confirmar'}
                             {order.status === 'confirmed' && 'Iniciar Preparación'}
@@ -329,8 +330,9 @@ export const Orders = () => {
                             onClick={() => updateOrderStatus(order.id, 'cancelled')}
                             disabled={updatingStatus === order.id}
                             size="sm"
+                            className="flex-1 sm:flex-none text-xs sm:text-sm"
                           >
-                            <X className="h-4 w-4 mr-2" />
+                            <X className="h-4 w-4 mr-1 sm:mr-2" />
                             Cancelar
                           </Button>
                         )}
